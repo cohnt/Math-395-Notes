@@ -1,0 +1,188 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}{\ptxt{deg}}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+\newcommand{\rank}{\ptxt{rank}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+\newcommand{\rInt}{\ptxt{rInt}\>}
+
+% Analysis
+\newcommand{\graph}{\ptxt{graph}}
+\newcommand{\epi}{\ptxt{epi}}
+\newcommand{\epis}{\ptxt{epi}_{S}}
+\newcommand{\hypo}{\ptxt{hypo}}
+\newcommand{\hypos}{\ptxt{hypo}_{S}}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Riemann Integrability}
+\date{10/24/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent $f$ is Riemann integrable on $Q$ if and only if $\forall\epsilon>0$, $\exists{}P$ partition of $Q$ such that $U(f,P)-L(f,P)<\epsilon$.\n
+Proof $\Leftarrow$: $\forall\epsilon>0$, we have $0\le\uint{Q}{}f-\lint{Q}{}f\le{}U(f,P)-L(f,P)<\epsilon$. So $\uint{Q}{}f=\lint{Q}{}f$.\n
+Proof $\Rightarrow$: For $\epsilon$, we have partitions $P,P'$ with $U(f,P')<L(f,P)+\epsilon$. Choose $P''$ refining $P$ and $P'$. Then $U(f,P'')\le{}U(f,P')<L(f,P)+\epsilon\le{}L(f,P'')+\epsilon$.\n
+\proven
+
+\newcommand{\OSC}{\ptxt{OSC}}
+\defn{$\OSC(f,\vec{a})\overset{\ptxt{def}}{=}\underset{\delta>0}{\inf}\set{\underset{U(\vec{a},\delta)\cap{}Q}{\sup}f-\underset{U(\vec{a},\delta)\cap{}Q}{\inf}f}$}
+
+\par\noindent $\OSC(f,\vec{a})<\epsilon\Leftrightarrow\exists{}U^{\ptxt{open}}\ni\vec{a}$ \st{} $\underset{U\cap{}Q}{\sup}f-\underset{U\cap{}Q}{\inf}f<\epsilon$.\n
+
+\par\noindent Note: $\set{\vec{a}:\OSC(f,\vec{a})<\epsilon}$ is open. $\OSC$ is upper semi-continuous.\n
+
+\ex{$f(x)=\left\{\begin{array}{ll}\sin\frac{1}{x} & x\ne{}0\\ 0 & x=0\end{array}\right.\qquad\OSC(f,a)=\left\{\begin{array}{ll}0 & a\ne{}0\\ 2 & a=0\end{array}\right.$}
+
+\defn{Let $\mathcal{D}_{k}=\set{\vec{a}\in{}Q:\OSC(f,\vec{a})\ge\frac{1}{k}}$ closed. $\mathcal{D}\overset{\ptxt{def}}{=}\bigcup_{k=1}^{\infty}\mathcal{D}_{k}=\set{\vec{a}\in{}Q:f\ptxt{ is not cts at }\vec{a}}$. This might not be a closed set.}
+
+\thm{The following are equivalent:
+\begin{enumerate}
+	\item $f$ is Riemann-integrable on $Q$
+	\item For $\epsilon>0$, $\exists{}P$ partition of $Q$ with $U(f,P)<L(f,P)+\epsilon$
+	\item For $\epsilon>0$, $k\in\N$, we can write $\mathcal{D}_{k}\subset{}R_{1}\cup\cdots\cup{}R_{j}$ boxes with $\sum_{l=1}^{j}V(R_{l})<\epsilon$
+	\item For $\epsilon>0$, we can write $\mathcal{D}\subset\bigcup_{p=1}^{\infty}R_{p}^{\ptxt{box}}$ with $\sum_{p=1}^{\infty}V(R_{p})<\epsilon$
+	\item For $\epsilon>0$, we can write $\mathcal{D}\subset\bigcup_{p=1}^{\infty}\rInt(R_{p}^{\ptxt{box}})$ with $\sum_{p=1}^{\infty}V(R_{p})<\epsilon$
+\end{enumerate}
+\n
+Proof $2\Rightarrow{}3$: Pick $P$ \st{} $\displaystyle{}U(f,P)-L(f,P)=\sum_{R\ptxt{ det'd by }P}\left(\underset{P}{\sup}f-\underset{P}{\inf}f\right)V(R)<\frac{\epsilon}{k}$. Let $R_{1},\ldots,R_{l}$ be the boxes determined by $P$ whose interior meets $\mathcal{D}_{k}$.\n
+Then $\displaystyle\frac{1}{k}\sum_{p=1}^{l}V(R_{p})\le\sum_{p=1}^{l}\left(\underset{R_{p}}{\sup}f-\underset{R_{p}}{\inf}f\right)V(R_{p})\le\frac{\epsilon}{k}$. So $\displaystyle\sum_{p=1}^{l}V(R_{p})<\epsilon$.\n
+Note: $\mathcal{D}_{k}\overset{\ptxt{?}}{\subset}R_{1}\cup\cdots\cup{}R_{l}$? Maybe not. But $\mathcal{D}_{k}\subset{}R_{1}\cup\cdots\cup{}R_{l}\cup\Bd\widetilde{R_{1}}\cup\cdots\cup\Bd\widetilde{R_{l}}$, and the sum of the volumes is less than $\epsilon$.\n
+\n
+Proof $3\Rightarrow{}4$: We can cover $\mathcal{D}_{k}$ with finitely many boxes with volume sum less than $\frac{\epsilon}{2k}$. Combined them -- the new volume sum is less than $\frac{\epsilon}{2}+\frac{\epsilon}{4}+\frac{\epsilon}{8}+\cdots=\epsilon$. Given $R^{\ptxt{box}}\subset{}Q$, $y>V(R)$, then $\exists\widetilde{R}^{\ptxt{box}}$ with $R\subset\rInt(\widetilde{R})\subset\widetilde{R}\subset{}Q$, and $V(\widetilde{R})<y$.\n
+\n
+Proof $4\Rightarrow{}5$: Pick $\displaystyle\mathcal{D}\subset\bigcup_{p=1}^{\infty}R_{p}$ with $\displaystyle\sum_{p=1}^{\infty}V(R_{p})<\frac{\epsilon}{4}$. Pick $R_{p}\subset\rInt(\widetilde{R_{p}})\subset\widetilde{R_{p}}\subset{}Q$ with $V(\widetilde{R_{p}})<2V(R_{p})$ if $v(R_{p})>0$ and $V(\widetilde{R_{p}})<\frac{\epsilon}{2^{p+1}}$ if $V(R_{p})=0$. Then the new volume sum is at most $2\cdot\frac{\epsilon}{4}+\frac{\epsilon}{2}=\epsilon$.}
+
+\end{document}

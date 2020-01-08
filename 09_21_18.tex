@@ -1,0 +1,142 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\n\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+
+% Topology
+\newcommand{\closure}[1]{\bar{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Intro to the Multivariable Calculus Chain Rule}
+\date{9/21/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent We said earlier that differentiable functions can be locally well-approximated by affine functions.\n
+
+\par\noindent Loosely, $f$ is differentiable $\to$ $f(\vec{a}+\vec{h})\approx{}f(\vec{a})+D_{f}(\vec{a})(\vec{h})$ for $\vec{h}\approx{}0$.\n
+\phantom{Loosely, $f$ is differentiable $\to$ }$f(\vec{x})\approx{}f(\vec{a})+D_{f}(\vec{a})(\vec{x}-\vec{a})$.\n
+
+\par\noindent Suppose we also have $f(\vec{a}):B\to{}Z$, where $B$ is an open subset of $W$ and $Z$ is a normed vector space. With $\vec{b}\in{}B$, $g(\vec{y})\approx{}g(\vec{b})+D_{g}(\vec{b})(\vec{y}-\vec{b})$.\n
+
+\par\noindent Combine $g(f(\vec{x}))\approx{}g(\vec{b})D_{g}(\vec{b})(f(\vec{x})-f(\vec{a}))$\n
+\phantom{Combine $g(f(\vec{x}))$}${}\approx{}g(\vec{b})+D_{g}(\vec{b})D_{f}(\vec{a})(\vec{x}-\vec{a})$\n
+\phantom{Combine $g(f(\vec{x}))$}${}\approx{}g(f(\vec{a}))+(D_{g}(\vec{b})\of{}D_{f}(\vec{a}))(\vec{x}-\vec{a})$.\n
+This suggests $D_{(g\of{}f)}(\vec{a})=D_{g}(\vec{b})\of{}D_{f}(\vec{a})$.\n
+
+\par\noindent\textit{This is the multivariable calculus chain rule.}
+
+\end{document}

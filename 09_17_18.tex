@@ -1,0 +1,188 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\n\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+
+% Topology
+\newcommand{\closure}[1]{\bar{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Some Directional Derivatives}
+\date{9/17/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall that $X$ is path-connected if $\forall\alpha,\beta\in{}X$, $\exists\varphi:[0,1]\to{}X$ continuous with $\varphi(0)=\alpha$ and $\varphi(1)=\beta$.\n
+
+\par\noindent\textbf{Some More Special Cases}
+\par\noindent\settowidth{\hangindent}{(4) }(4) Is $\GL(n,\R)$, the set of invertible $n\times{}n$ real matrices, connected?\n
+No! Consider $f:\GL(n\R)\to\set{0,1}$, with $\displaystyle{}M\mapsto\frac{\frac{\det{}M}{\abs{\det{}M}}+1}{2}$. $f$ is both continuous and surjective.\n
+
+\par\noindent (5) Exercise: $\GL_{+}(n,\R)=\set{M\in\GL(n,\R):\det{}M>0}$. Show that $\GL_{+}(n,\R)$ is path-connected.\n
+
+\par\noindent\settowidth{\hangindent}{(6) }(6) $X\subseteq\R\leftrightarrow{}X$ is an interval or $X=\emptyset$ or $X$ is a singleton. (Note that some people consider $\emptyset$ and singletons to be an interval.)\n
+
+\prop{For $X$ a topological space, we have $f=(f_{1},\ldots,f_{n}):X\to\R^{n}$ continuous $\leftrightarrow$ each $f_{i}$ is continuous.\n
+Proof: $\Rightarrow$ Let $f_{j}=p_{j}\of{}f$ where $p_{j}:\R^{n}\to\R$ $(y_{1},\ldots,y_{n})\mapsto{}y_{j}$. The composition of two continuous functions is continuous, and $p_{j}$ is continuous, so $f_{j}$ is continuous.\n
+$\Leftarrow$ Assume $X$ is a metric space. Fix $x_{0}\in{}X$, $\varepsilon>0$. There is $\delta_{j}>0$ \st{} $\abs{f_{j}(x)-f_{j}(x_{0})}\le\frac{\varepsilon}{\sqrt{n}}$ for $1\le{}j\le{}n$, when $d(x,x_{0})<\delta_{j}$. Then let $\delta=\min\set{\delta_{1},\ldots,\delta_{n}}$.\n
+$d(f(x),f(x_{0}))=\norm{f(x_{0})-f(x)}\le\sqrt{n}\abs{f(x)-f(x_{0})}_{\ptxt{sup norm}}\le\sqrt{n}\frac{\varepsilon}{\sqrt{n}}=\varepsilon$ when $d(x,x_{0})<\delta$.\n
+\proven}
+
+\par\noindent This is not true the other way!\n
+
+\ex{$f:\R^{2}\to\R$\n
+$(x_{1},x_{2})\mapsto\left\{\begin{array}{lll}\frac{x_{1}x_{2}}{x_{1}^{2}+x_{2}^{2}} & \quad & (x_{1},x_{2})\ne(0,0)\\ 0 & \quad & (x_{1},x_{2})=(0,0)\end{array}\right.$\n
+This is a continuous function of $x_{1}$ if $x_{2}$ is fixed.\n
+This is a continuous function of $x_{2}$ if $x_{1}$ is fixed.\n
+But $f$ is not continuous on $\R^{2}$ since $f(\frac{1}{n},\frac{1}{n})=\frac{1}{2}\to\frac{1}{2}\ne{}f(0,0)$. So $f$ is not sequentially continuous, and we're in a metric space, so $f$ is not continuous.}
+
+\par\noindent Now, we present a potential paradox. Consider $f:\R\to\R$.\n
+We say $f$ is continuous at $a$ $\leftrightarrow$ the graph of $f$ is ``almost horizontal'' when magnified.\n
+We say $f$ is differentiable at $a$ $\leftrightarrow$ the graph of $f$ is ``almost affine'' (and not vertical) when magnified.\n
+But continuous at $a$ $\not\to$ differentiable at $a$.\n
+
+\par\noindent Try this in a vector space $V$.\n
+$f:V\to{}V$, $x\mapsto\lambda{}x$. This is the dilation centered at $\vec{0}$.\n
+The dilation centered at $\vec{p}$:\n
+$\displaystyle\begin{array}{ccccccc}V & \to & V & \to & V & \to & V\\
+\vec{x} & \mapsto & \vec{x}-\vec{p} & \mapsto & \lambda(\vec{x}-\vec{p}) & \mapsto & \lambda(\vec{x}-\vec{p})+\vec{p}\end{array}$.\n
+Put concisely, $\vec{x}\mapsto\lambda\vec{x}+(1-\lambda)\vec{p}$\n
+
+\par\noindent Given $f:V\to{}W$ with $V,W$ vector spaces over $\R$ (or perhaps $\C$), we define $\Graph{}f=\set{(\vec{x},f(\vec{x})\in{}V\times{}W:\vec{x}\in{}V}$.\n
+
+\par\noindent Dilation about $(\vec{a},f(\vec{a}))$ is $(\vec{x},f(\vec{x}))\mapsto(\lambda(\vec{x}-\vec{a})+\vec{a},\lambda(f(\vec{x})-f(\vec{a}))+f(\vec{a}))$.\n
+
+\par\noindent Set $t=\frac{1}{\lambda}$, $\vec{u}=\frac{\vec{x}-\vec{a}}{t}$. So $\vec{x}=\vec{a}+t\vec{u}$. So the dilated grpah now looks like\n
+$\displaystyle\set{\left(\vec{a}+\vec{u},f(\vec{a})\frac{f(\vec{a}+t\vec{u})-f(\vec{a})}{t}\right):\vec{u}\in{}V}$\n
+
+\par\noindent With $t\to{}0$ (i.e. $\lambda\to\infty$), we want $f(\vec{a})\frac{f(\vec{a}+t\vec{u})-f(\vec{u})}{t}$ to be an affine function of $\vec{a}+\vec{u}$.\n
+i.e. a linear function of $(\vec{a}+\vec{u})$ plus a constant.\n
+i.e. a linear function of $\vec{u}$ plus some other constant.\n
+i.e. $T(\vec{u})+\vec{b}$ with $\vec{b}=f(\vec{a})$.\n
+
+\defn{This reduces to $\displaystyle\lim_{t\to{}0}\frac{f(\vec{a}+t\vec{u})-f(\vec{a})}{t}=f'(\vec{a};\vec{u})$, the \underline{directional derivative} of $f$ at $\vec{a}$ in direction $\vec{u}$.}
+
+\par\noindent We could try to make this theorem the core definition for multivariable differential calculus, but we won't!\n
+(1) Munkres \S{}5 EX 2: all $f'(\vec{a};\vec{u})$ with fixed $\vec{a}$ exist but not linear in $\vec{u}$.\n
+(2) $f(x,y)=\left\{\begin{array}{lll}x^{3}/y & \quad & y\ne{}0\\ 0 & \quad & y=0\end{array}\right.$ $f'(\vec{0};\vec{v})=\vec{0}$ $\forall\vec{u}$. But $f(\frac{1}{n},\frac{1}{n}u)\not\to{}0$ as $n\to\infty$. So $f$ is not continuous. Does that mean differentiability $\not\to$ continuity? No, we just need a stronger definition of differentiable.\n
+(3) The Chain Rule (Munkres \S{}7) will fail without a stronger assumption.\n
+
+\par\noindent Something easier: vector-valued functions of a scalar.\n
+$f:I\subset\R\to{}W$ where $I$ is an open interval and $W$ is a vector space.\n
+$f'(x)=\lim_{t\to\infty}\frac{f(x+t)-f(x)}{t}$, but we need a topology on $W$.\n
+Choose $W$ to be a normed vector space, thus giving us a topology.\n
+
+\par\noindent Fact: $\dim{}W<\infty\to$ all norms on $W$ induce the same topology.
+
+\end{document}

@@ -1,0 +1,230 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+\newcommand{\iffdef}{\overset{\ptxt{def}}{\Leftrightarrow}}
+\newcommand{\eqdef}{\overset{\ptxt{def}}{=}}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Manifolds-Without-Boundary}
+\date{12/3/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\defn{$M\subseteq\R^{n}$ is a \underline{$C^{r}$ $k$-manifold-without-boundary} $\iffdef$ $U^{\ptxt{open}}\subseteq\R^{k}$, $p\in{}V^{\ptxt{rel. open}}\subseteq{}M$, and\n
+$\alpha\in{}C^{r}(U,V)$ homeomorphic with $\rank{}D\alpha(\vec{x})=k$ for all $\vec{x}\in{}U$ ($\alpha$ is a coordinate patch).}
+
+\ex{$M=\set{(x,y):x^{2}=y^{3}}$. Let $\begin{array}{rcl}\alpha:\R & \to & M\\ t & \mapsto & (t^{3},t^{2})\end{array}$ homeomorphic, but $\alpha'(0)=(0,0)$. So this fails! We will show $M$ is not a manifold-without-boundary.}
+
+\ex{$M=\set{(x,y):y=\abs{x}}$. Let $\begin{array}{rcl}\alpha:\R & \to & M\\ t & \mapsto & (t^{3},t^{6})\end{array}$ homeomorphic, but $\alpha'(0)=(0,0)$. So this fails! We will show this $M$ is also not a manifold-without-boundary.}
+
+\ex{$M=\set{(x,y):y=x^{2}}$. Let $\begin{array}{rcl}\alpha:\R & \to & M\\ t & \mapsto & (t^{3},t^{6})\end{array}$ homeomorphic, but $\alpha'(0)=(0,0)$. So this fails.\n
+But let $\begin{array}{rcl}\beta:\R & \to & M\\ t & \mapsto & (t,t^{2})\end{array}$ homeomorphic, and $\alpha'(0)=(1,0)$. So it is a manifold-without-boundary.}
+
+\ex{Interval to a figure 8 symbol (really only makes sense with the picture).}
+
+\ex{$M=\set{(x,y):x^{2}+y^{2}=1}$. We can't handle this with one coordinate patch, or else $\exists\alpha\inv:M\to{}U^{\ptxt{osso}\R}$ continuous. $M$ is compact, so $\alpha\inv$ can't exist. But we can use $2$ trig parameters.}
+
+\thm{For $M\subseteq\R^{n}$, the following are equivalent:
+\begin{enumerate}[label=(\arabic*)]
+	\item $M$ is a $k$-mfd-wob
+	\item $\forall{}p\in{}M$, $\exists{}V^{\ptxt{rel. open}}\subset{}M$ with $V\ni{}p$ and $\exists{}g\in{}C^{r}(\ptxt{osso}\R^{k},\R^{n-k})$, $\exists\ptxt{Perm}:\R^{n}\to\R^{n}$ coord permutation, such that $v=\ptxt{Perm}(\Graph(g))$.
+\end{enumerate}\up\n
+Proof (2)$\Rightarrow$(1): Take $\alpha:\ptxt{dom}(g)\to{}V$, $\vec{x}\mapsto\ptxt{Perm}(\vec{x},g(\vec{x}))$. Then $\alpha\inv=(\ptxt{proj onto }\R^{k})\of\ptxt{Perm}\inv$.\n
+Proof (1)$\Rightarrow$(2): For $1<s_{1}<\cdots<s_{k}\le{}n$, let $S=\set{s_{1},\ldots,s_{k}}$. Define $P_{S}:\R^{n}\to\R^{k}$ by $\vec{x}\mapsto(x_{s_{1}},\ldots,x_{s_{k}})$. Then $D(P_{S}\of\alpha)(q)=DP_{S}(p)\cdot{}D\alpha(a)=P_{S}\cdot{}D\alpha(p)$. $D\alpha(p)$ has $n$ rows, $k$ columns, and is of rank $k$, so by the rank condition, choose $S$ such that $D(P_{S}\of\alpha)(g)$ invertible.\n
+By the inverse function theorem, we can convert $U,V,\Omega$ to $\tilde{U},\tilde{V},\tilde{\Omega}$ \st{} $P_{S}\of\alpha$ is differentiable from $\tilde{U}\to\tilde{\Omega}$.\n
+\n
+Let $h=\alpha\of(P_{S}\of\alpha)\inv$. Then $P_{S}\of{}h=P_{S}\of\alpha\of(P_{S}\of\alpha)\inv=\Id$. Choose a permutation such that $\ptxt{Perm}(\set{1,\ldots,k})=S$. Then $\tilde{V}=\ptxt{Perm}(\Graph(P_{S}\of{}h))$.\n
+\n
+Fact 1: $\alpha\inv:\tilde{V}\to\tilde{U}$ extends $(P_{S}\of\alpha)\inv\of{}P_{S}\in{}C^{r}(\ptxt{Perm}(\tilde{\Omega}\times\R^{n-k}),\tilde{U})$.\n
+Fact 2: Because of fact 1, $\alpha_{2}\inv\of\alpha_{1}$ (where $\alpha_{2}$ maps from $U_{2}$ to $M$) is $C^{r}$ where defined. So $\alpha_{2}\inv\of\alpha_{1}$ is a $C^{r}$ diffeomorphism. Hence, $D(\alpha_{2}\inv\of\alpha_{1})$ is invertible.\n
+Thus, $p\in{}M$, and $M$ is a $k$-mfd-wob.\proven}
+
+\par\noindent After ``\B{}IG ZOOM'', $M$ looks more like an affine set $p+\tau_{p}(M)$ (specifically, the tangent space to $M$ at $p$).\n
+
+\defn{$\tau_{p}(M)\eqdef{}D\alpha_{1}(q_{1})[\R^{k}]$ is the \underline{tangent space} to $M$ at $p$.}
+
+\par\noindent $D\alpha_{2}(q_{2}[\R^{k}])\overset{(2)}{=}D\alpha_{2}(q_{2})\cdot{}D(\alpha_{2}\inv\of\alpha_{1})(q_{1})[\R^{k}]=D\alpha_{1}(q_{1})[\R^{k}]$
+
+\end{document}

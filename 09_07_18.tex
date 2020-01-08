@@ -1,0 +1,136 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\n\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}(#1)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+
+% Topology
+\newcommand{\closure}[1]{\bar{#1}}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Moore ``Affine" Notions}
+\date{9/7/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent The extended reals are denoted as $[-\infty,+\infty]=\R\cup\set{\pm\infty}$.\n
+
+\par\noindent Notation: Suppose for $\alpha\in{}A$ we are given $S_{\alpha}\subset{}X$, i.e., we have a function $f:A\to\ps{X}$ where $\alpha\mapsto{}S_{\alpha}$.\n
+$\displaystyle\bigcup_{\alpha\in{}A}S_{\alpha}=\set{x\in{}X:x\in{}S_{\alpha}\ptxt{ for at least one }\alpha\in{}A}$\n
+$\displaystyle\bigcap_{\alpha\in{}A}S_{\alpha}=\set{x\in{}X:x\in{}S_{\alpha}\ptxt{ for all }\alpha\in{}A}$\n
+If $A\ne\emptyset$, then $\displaystyle\bigcup_{\alpha\in{}A}S_{\alpha}\ne\emptyset$ and $\displaystyle\bigcap_{\alpha\in{}A}S_{\alpha}=X$. \flag{Is that right?}\n\n
+
+\par\noindent Let $V,W$ be vector spaces over $F$, a field where $1+1\ne{}0$. We will study functions $T:V\to{}W$.\n
+
+\par\noindent Graph $T=\set{(\vec{v},\vec{w})\in{}V\times{}W:\vec{w}=T(\vec{v})}=\set{(\vec{v},T(\vec{v}))\in{}V\times{}W:\vec{v}\in{}V}$. Note that $V\times{}W$ is a vector space: $(\vec{v_{1}},\vec{w_{1}})+(\vec{v_{2}},\vec{w_{2}})=(\vec{v_{1}}+\vec{v_{2}},\vec{w_{1}}+\vec{w_{2}})$ and $t(\vec{v},\vec{w})=(t\vec{v},t\vec{w})$.\n
+
+\par\noindent The ``simplest'' $T$'s are those with flat graphs, i.e., a graph that is an affine subset of $V\times{}W$.\n
+
+\defn{A function $T$ is \underline{affine} if and only if its graph is affine.}
+
+\par\noindent Special Case: $T(\vec{0})=\vec{0}$, or equivalently, $(\vec{0},\vec{0})\in\ptxt{Graph }T$.\n
+Then $T$ is affine $\leftrightarrow$ Graph $T$ is a linear subspace of $V\times{}W$.\n
+\phantom{Then $T$ is affine }$\leftrightarrow$ $\vec{v_{1}},\vec{v_{2}}\in{}V$, $t\in{}F$ implies that $T(\vec{v_{1}}+\vec{v_{2}})=T(\vec{v_{1}})+T(\vec{v_{2}})$, and $tT(\vec{v_{1}})=T(t\vec{v_{1}})$.\n
+\phantom{Then $T$ is affine }$\leftrightarrow$ $T$ is linear.\n
+
+\par\noindent General Case: $T:V\to{}W$ is affine $\leftrightarrow$ Graph $T$ is affine.\n
+\phantom{General Case: $T:V\to{}W$ is affine }$\leftrightarrow$ Graph $T-(\vec{0},T(\vec{0}))$ is a linear subspace.\n
+\phantom{\phantom{General Case: $T:V\to{}W$ is affine }$\leftrightarrow$ }Note that Graph $T-(\vec{0},T(\vec{0}))=\set{(\vec{v},T(\vec{v})-T(\vec{0})):\vec{v}\in{}V}$.\n
+\phantom{General Case: $T:V\to{}W$ is affine }$\leftrightarrow$ $L$ is linear. \flag{What was $L$?}\n
+\phantom{General Case: $T:V\to{}W$ is affine }$\leftrightarrow$ $T$ is of the form $T(\vec{v})=\widetilde{T}(\vec{v})+\vec{b}$ with $\widetilde{T}$ linear.\n
+
+\par\noindent As an exercise, prove that $\widetilde{T}$ is uniquely determined by $T$.
+
+\end{document}

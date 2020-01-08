@@ -1,0 +1,275 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Partitions of Unity and Proving the Change of Variables Theorem}
+\date{11/14/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall\n
+Type (1) diffeomorphisms: coordinate transposition\n
+Type (2) diffeomorphisms: $\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\\ x_{n}\end{array}}\mapsto\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\\ \alpha(\vec{x})\end{array}}$\n
+
+\par\noindent We can combine these to obtain type (3) diffeomorphisms: ``generalized shears''
+\[
+\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{j-1}\\ x_{j}\\ x_{j+1}\\ \vdots\\ x_{n}\end{array}}\mapsto\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{j-1}\\ \eta(\vec{x})\\ x_{j+1}\\ \vdots\\ x_{n}\end{array}}
+\]
+
+\prop{Any invertible affine map may be factored into a composition of affine maps of type (1) or (2) (equivalently, type (1) or (3)).\n
+Proof: For linear maps, use ``elementary matrix factorization'' (Thm 2.4)\n
+For translations, move coord at a time.\n
+\proven}
+
+\par\noindent Fun fact: type (1) is just the composition of three type (3) maps.\n
+
+\ex{$\paren{\begin{array}{cc}0 & 1\\ 1 & 0\end{array}}=\paren{\begin{array}{cc}-1 & 1\\ 0 & 1\end{array}}\paren{\begin{array}{cc}1 & 0\\ 1 & 1\end{array}}\paren{\begin{array}{cc}1 & -1\\ 0 & 1\end{array}}$}
+
+\thm{In some neighborhood of $\vec{p}$, $g$ can be factored into a composition of diffeomorphisms of type (1) or (2) (equivalently (1) or (3)).\n
+\n
+Step 1: Pick $T_{1},T_{2}:\R^{n}\to\R^{n}$ invertible, affine such that $g=T_{1}\of\tilde{g}\of{}T_{2}$ with $T_{2}(\vec{p})=\vec{0}$ and $T_{1}(\vec{0})=\vec{q}$, $D\tilde{g}(\vec{0})=\Id$. So $\tilde{g}(\vec{0})=\vec{0}$, and we can take $DT_{2}=Dg(\vec{p})$ and $DT_{1}=\Id$.
+\n
+\n
+\newpage
+Step 2: $\begin{array}{cccl}
+\paren{\begin{array}{c}x_{1}\\ x_{2}\\ x_{3}\\ \vdots\\ x_{n}\end{array}} & \mapsto & \paren{\begin{array}{c}\tilde{g}_{1}(\vec{x})\\ x_{2}\\ x_{3}\\ \vdots\\ x_{n}\end{array}} & \ptxt{So $D\tilde{g}_{k}(\vec{0})=\vec{e_{k}}$, so the derivative at $\vec{0}$ is $\Id$, so it's locally diffeomorphic.}\\
+ & & \mapsdown & \ptxt{local diffeomorphism*}\\
+\paren{\begin{array}{c}x_{1}\\ x_{2}\\ x_{3}\\ \vdots\\ x_{n}\end{array}} & \mapsto & \paren{\begin{array}{c}\tilde{g}_{1}(\vec{x})\\ \tilde{g}_{2}(\vec{x})\\ x_{3}\\ \vdots\\ x_{n}\end{array}} & \ptxt{Also has derivative at $\vec{0}$ is $\Id$, so locally diffeomorphic.}\\
+ & & \mapsdown & \ptxt{local diffeomorphism*}\\
+\paren{\begin{array}{c}x_{1}\\ x_{2}\\ x_{3}\\ \vdots\\ x_{n}\end{array}} & \mapsto & \paren{\begin{array}{c}\tilde{g}_{1}(\vec{x})\\ \tilde{g}_{2}(\vec{x})\\ \tilde{g}_{3}(\vec{x})\\ \vdots\\ x_{n}\end{array}} & \ptxt{''}\\
+ & & \mapsdown & \ptxt{local diffeomorphism*}\\
+ & & \mapsdown & \ptxt{local diffeomorphism*}\\
+\end{array}$\n
+So $\vec{x}\mapsto\tilde{g}(\vec{x})$ has derivative $\Id$ at $\vec{0}$, so it's locally diffeomorphic.\n
+\n
+* These diffeomorphisms preserve $n-1$ coordinates, so they're type (3).\n
+\n
+And $T_{1},T_{2}$ are type (1) diffeomorphisms.\n
+\proven}
+
+\defn{Consider $f:X^{\ptxt{metric space}}\to{}V^{\ptxt{vector space}}$. $\supp{}f\overset{\ptxt{def}}{=}\closure{\set{\vec{x}:f(\vec{x})\ne\vec{0}}}$.\n
+So $\vec{x}\not\in\supp{}f\Leftrightarrow\exists\epsilon>0$ \st{} $f\equiv\vec{0}$ on $U(\vec{x},\epsilon)$.}
+
+\cor{(of factorization and results from Monday):\n
+There exists a neighborhood $U$ of $\vec{q}$ such that the COVT holds when $\supp{}f\subset{}U$.\n
+Proof: Picture.\proven}
+
+\par\noindent We now have a local version of the COVT!\n
+
+\thm{(Partition of Unity) Given $\Omega^{\ptxt{open}}\subset\R^{n}$ with $\Omega=\bigcup_{\alpha\in\Gamma}U_{\alpha}^{\ptxt{open}}$, then\n
+$\exists\varphi_{1},\varphi_{2},\ldots\in{}C^{\infty}(\Omega,[0,+\infty))$ \st{}
+\begin{enumerate}[label=(\roman*),leftmargin=2cm]
+	\item each $\supp\varphi_{j}\subset\ptxt{some }U_{\alpha_{j}}$
+	\item each $\supp\varphi_{j}$ compact
+	\item each $\vec{x}\in\Omega$ has a nbd meeting (i.e., non-empty intersection) only finitely many $\supp\varphi_{j}$
+	\item $\sum_{j=1}^{\infty}\varphi_{j}(\vec{x})=1$ for al $\vec{x}\in\Omega$ (locally finite sum)
+\end{enumerate}\up\n
+Then $\set{\varphi_{j}}$ is a ``partition of unity dominated by $\set{U_{\alpha}}$''.\n
+Proof: Nov 21, or read \S{}16.}
+
+\lemma{Given $f\in{}C(B^{\ptxt{osso}\R^{n}},\R)$, $\extint_{B}f$ exists, $\set{\varphi_{j}}$ satisfies (ii), (iii), (iv).\n
+Then $\displaystyle\extint_{B}f=\sum_{j=1}^{\infty}\int_{B}\varphi_{j}\cdot{}f$.\n
+\n
+Proof: strategy is tackle $f\ge{}0$, then apply previous result to $f_{+}$, $f_{-}$, and combine.\n
+\n
+Assume $f\ge{}0$. Then $E^{\ptxt{cpt},\ptxt{rect}}\subset{}B\Rightarrow\exists{}M$ \st{} $U_{j}\equiv{}0$ on $E$ for $j\ge{}M$. This is compact using (iii).\n
+Thus, $\displaystyle\int_{E}f=\int_{E}\sum_{i=1}^{M}\varphi_{j}\cdot{}f=\sum_{i=1}^{M}\int_{E}\varphi_{j}\cdot{}f\le\sum_{j=1}^{M}\int_{B}\varphi_{j}\cdot{}f\le\sum_{j=1}^{\infty}\int_{B}\varphi_{j}\cdot{}f$.\n
+Take the supremum over $E$, obtain $\displaystyle\extint_{E}f\le\sum_{j=1}^{\infty}\int_{B}\varphi_{j}\cdot{}f$\n
+Also, $\displaystyle\sum_{j=1}^{\infty}\int_{B}\varphi_{j}\cdot{}f=\lim_{M\to\infty}\sum_{j=1}^{M}\int_{B}\varphi_{j}\cdot{}f=\lim_{M\to\infty}\int_{B}\sum_{j=1}^{M}\varphi_{j}\cdot{}f\le\extint_{B}f$.\n
+\n
+Apply to $f_{+},f_{-}$.\n
+Combine.\proven}
+
+\par\noindent Proof of the Change of Variables Theorem: For $\vec{y}\in{}B$, choose $U_{\vec{y}}$ \st{} $g$ factors on $U_{\vec{y}}$. Choose partition of unity dominated by $\set{U_{\vec{y}}:\vec{y}\in{}B}$. Then
+\[
+\extint_{B}f_{+}\overset{\ptxt{lemma}}{=}\sum\int_{B}\varphi_{j}f_{+}=\sum\int_{A}(\varphi_{1}\of{}g)(f_{+}\of{}g)\abs{\det{}Dg}\overset{\ptxt{lemma}}{=}\extint_{A}(f_{+}\of{}g)\cdot\abs{\det{}Dg}
+\]
+
+\par\noindent Similarly, $\displaystyle\extint_{A}f_{-}=\extint_{A}(f_{-}\of{}g)\cdot\abs{\det{}Dg}$.\n
+
+\par\noindent Now combine (unles both terms are infinite).\proven
+
+\end{document}

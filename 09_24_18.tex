@@ -1,0 +1,198 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+
+% Topology
+\newcommand{\closure}[1]{\bar{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Chain Rule}
+\date{9/24/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Goal: (*) $\frac{g(f(\vec{a}+\vec{h}))-g(f(\vec{a}))-D_{g}(\vec{b})(D_{f}(\vec{a})(\vec{h}))}{\norm{\vec{h}}}\to\vec{0}$ as $\vec{h}\to\vec{0}$.\n
+
+\par\noindent Proof: $F(\vec{h})=\left\{\begin{array}{lll}\frac{f(\vec{a}+\vec{h})-f(\vec{a})-D_{f}(\vec{a})(\vec{h})}{\norm{\vec{h}}} & \quad & \vec{h}\ne\vec{0}\\ \vec{0} & \quad & \vec{h}=\vec{0}\end{array}\right.$.\n
+Note that $D_{f}(\vec{a})$ is a bounded, linear map from $V$ to $W$ (according to the handout).\n
+
+\par\noindent $F$ is continuous at $\vec{0}$.\n
+$\vec{k}=f(\vec{a}+\vec{h})-f(\vec{a})=D_{f}(\vec{a})(\vec{h})+\norm{\vec{h}}F(\vec{h})$.\n
+Similarly, $g(\vec{b}+\vec{k})-g(\vec{b})=D_{g}(\vec{b})(\vec{k})+\norm{k}G(\vec{k})$ with $G(\vec{0})=\vec{0}$, so $G$ is continuous at $\vec{0}$.\n
+
+\par\noindent So (*)$=\frac{g(\vec{b}+\vec{k})-g(\vec{b})-D_{g}(\vec{b})(D_{f}(\vec{a})(\vec{h}))}{\norm{h}}$\n
+\phantom{So (*)}$=\frac{D_{g}(\vec{b})(\vec{k})+\norm{\vec{k}}G(\vec{k})-D_{g}(\vec{b})(D_{f}(\vec{a})(\vec{h}))}{\norm{\vec{h}}}$\n
+\phantom{So (*)}$=\frac{\cancel{D_{g}(\vec{b})(D_{f}(\vec{a})(\vec{h}))}+\norm{\vec{h}}D_{g}(\vec{b})(F(\vec{h}))+\norm{\vec{k}}G(\vec{k})-\cancel{D_{g}(\vec{b})(D_{f}(\vec{a})(\vec{h}))}}{\norm{\vec{h}}}$\n
+\phantom{So (*)}$=\frac{\norm{\vec{h}}D_{g}(\vec{b})(F(\vec{h}))+\norm{\vec{k}}G(\vec{k})}{\norm{\vec{h}}}$\n
+\phantom{So (*)}$=D_{g}(\vec{b})(F(\vec{h}))+\frac{\norm{\vec{k}}}{\norm{\vec{h}}}G(\vec{k})$.\n
+If $\vec{h}\to{}\vec{0}$, then $\vec{k}\to\vec{0}$, so $G(\vec{k})\to\vec{0}$. And $F(\vec{h})\to\vec{0}$.\n
+$\frac{\norm{\vec{k}}}{\norm{\vec{h}}}=\norm{D_{f}(\vec{a})\left(\frac{\vec{h}}{\norm{\vec{h}}}\right)+F(\vec{h})}$. $F(\vec{h})\to\vec{0}$, and $\frac{\vec{h}}{\norm{\vec{h}}}=1$, so $D_{f}(\vec{a})\left(\frac{\vec{h}}{\norm{\vec{h}}}\right)$ is bounded; thus $\frac{\norm{\vec{k}}}{\norm{\vec{h}}}\to\vec{0}$.\n
+So $D_{g}(\vec{b})(F(\vec{h}))+\frac{\norm{\vec{k}}}{\norm{\vec{h}}}G(\vec{k})\to\vec{0}$ as $\vec{h}\to\vec{0}$.\proven
+
+\ex{$\left.\begin{array}{l}\alpha:W\times{}W\to{}W\\ (\vec{w_{1}},\vec{w_{2}})\mapsto\vec{w_{1}}+\vec{w_{2}}\end{array}\right]$-bounded, linear. $D_{\alpha}(\vec{w_{1}},\vec{w_{2}})=\alpha$}
+
+\ex{Suppose $A\begin{array}{ll}\xrightarrow[]{f_{1}}\\ \xrightarrow[f_{2}]{}\end{array}W$ is differentiable at $\vec{a}\in{}A$ (where $A$ is an open subset of $V$).\n
+Then $D_{(f_{1},f_{2})}(\vec{a})=(D_{f_{1}}(\vec{a}),D_{f_{2}}(\vec{a})\in{}B(V,W\times{}W)$ where $B(V,W\times{}W)$ is the set of bounded linear maps.\n
+\n
+$f_{1}+f_{2}=\alpha\of(f_{1},f_{2}):A\to{}W$.\n
+Chain Rule: $f_{1}+f_{2}$ differentiable at $\vec{a}$, so\n
+$D_{f_{1}+f_{2}}(\vec{a})=D_{\alpha}(f_{1}(\vec{a}),f_{2}(\vec{a}))(D_{f_{1}}(\vec{a}),D_{f_{2}}(\vec{a}))=D_{f_{1}}(\vec{a})+D_{f_{2}}(\vec{a})$}
+
+\ex{$\mu:\R^{2}\to\R$, $\left(\begin{array}{l}x_{1}\\ x_{2}\end{array}\right)\mapsto{}x_{1}x_{2}$.\n
+From last week: $D_{\mu}\left(\begin{array}{l}x_{1}\\ x_{2}\end{array}\right)=\left[\begin{array}{ll}D_{1\mu}\left(\begin{array}{c}x_{1}\\ x_{2}\end{array}\right) & D_{2\mu}\left(\begin{array}{c}x_{1}\\ x_{2}\end{array}\right)\end{array}\right]=\left[\begin{array}{ll}x_{2} & x_{1}\end{array}\right]$.\n
+This is, of course, assuming the derivative exists. Prove that the derivative exists.}
+
+\ex{Suppose $A\begin{array}{ll}\xrightarrow[]{f_{1}}\\ \xrightarrow[f_{2}]{}\end{array}\R$ is differentiable at $\vec{a}\in{}A$.\n
+$\left(\begin{array}{l}f_{1}\\ f_{2}\end{array}\right):A\to\R^{2}$\n
+$f_{1}f_{2}=\mu\of\left(\begin{array}{l}f_{1}\\ f_{2}\end{array}\right):A\to\R$\n
+\n
+Chain Rule: $f_{1}f_{2}$ differentiable at $\vec{a}$.\n
+$D_{f_{1}f_{2}}(\vec{a})(\vec{u})=\left(D_{\mu}\left(\begin{array}{l}f_{1}(\vec{a})\\ f_{2}(\vec{a})\end{array}\right)\of\left(\begin{array}{l}D_{f_{1}}(\vec{a})\\ D_{f_{2}}(\vec{a})\end{array}\right)\right)(\vec{u})$\n
+\phantom{$D_{f_{1}f_{2}}(\vec{a})(\vec{u})$}${}=\left[\begin{array}{ll}f_{2}(\vec{a}) & f_{1}(\vec{a})\end{array}\right]\left[\begin{array}{l}D_{f_{1}}(\vec{a})(\vec{u})\\ D_{f_{2}}(\vec{a})(\vec{u})\end{array}\right]$\n
+Rewrite: $D_{(f_{1},f_{2})}(\vec{a})=f_{2}(\vec{a})\cdot{}D_{f_{1}}(\vec{a})+f_{1}(\vec{a})\cdot{}D_{f_{2}}(\vec{a})$.}
+
+\par\noindent What about multiplication of vector-valued $f_{1},f_{2}$ (that is, $f_{1}$ and $f_{2}$ output vectors)?\n
+
+\begin{itemize}
+	\item Not defined in general.
+	\item Works if $f_{1}$ is $\R$-valued and $f_{2}$ is vector-valued.
+	\item Works if $f_{1},f_{2}$ map into some inner product space $W$.
+	\item Works if $f_{1}\to{}W_{1}$, $f_{2}\to{}W_{2}$, with $\vec{a}\mapsto(f_{1}(\vec{a}),f_{2}(\vec{a}))\in{}W_{1}\times{}W_{2}$.
+	\item Works if $f_{1}\to\Mat(n,m,\R)$, $f_{2}\to\Mat(m,p,\R)$, $\vec{a}\mapsto{}f_{1}(\vec{a})f_{2}(\vec{a})\in\Mat(n,p,\R)$.
+\end{itemize}
+
+\par\noindent Guess: $f_{1},f_{2}$ matrix-valued functions.\n
+$D_{(f_{1},f_{2})}(\vec{a})(\vec{h})=D_{f_{1}}(\vec{a})(\vec{h})f_{2}(\vec{a})+f_{1}(\vec{a})D_{f_{2}}(\vec{a})(\vec{h})$.\n
+Exercise: check this. It will be on an upcoming homework!\n
+
+\par\noindent Other examples:\n
+
+\par\noindent $f_{1},f_{2}$ are $\C$-valued. Identify $a+ib$ with $\left[\begin{array}{cc}a & -b\\ b & a\end{array}\right]$.\n
+
+\par\noindent The multiplication of ``tensors''\n
+
+\par\noindent Now suppose $A\subset{}V$ open, with $f:A\to{}W$ differentiable at each $\vec{a}\in{}A$. Then $f$ is continuous on $A$.\n
+Get $D_{f}:A\to{}B(V,W)$ (on a normed vector space -- see handout).\n
+
+\defn{$f$ is \underline{continuously differentiable} on $A$ $\leftrightarrow$ $D_{f}$ is continuous on $A$. If this is the case, we say that $f$ is $C^{1}$, i.e., $f\in{}C^{1}$.}
+
+\par\noindent Note that continuity of the derivative is \textit{not} automatic.\n
+
+\end{document}

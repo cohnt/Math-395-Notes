@@ -1,0 +1,172 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+\newcommand{\rank}{\ptxt{rank}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+\newcommand{\rInt}{\ptxt{rInt}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{The Local Second Derivative Test}
+\date{10/19/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent For $n=1$: Given $f\in{}C^{2}(I^{\ptxt{interval}\subset\R},\R)$, $f''\ge{}0$ on $I$, and $f'(x_{0})=0$, then $f(x)\ge{}f(x_{0})$ for all $x\in{}I$.\n
+
+\par\noindent For any $n$: Given $f\in{}C^{2}(\Omega^{\ptxt{convex osso}\R^{n}},\R)$, $Hf(\vec{x})\ge{}0$ $\forall\vec{x}\in\Omega$ (that is, $\vec{a}\tpose\cdot{}Hf(\vec{x})\cdot\vec{a}\ge{}0$ for all $\vec{a}$), and $Df(\vec{x_{0}})=\vec{0}$, then $f(\vec{x})\ge{}f(\vec{x_{0}})$ for all $\vec{x}\in\Omega$.\n
+
+\par\noindent Proof: Let $\varphi(t)=(1-t)\vec{x_{0}}+t\vec{x}$. Then $\varphi'(t)=\vec{x}-\vec{x_{0}}\overset{\ptxt{def}}{=}\vec{a}$.\n
+So $(f\of\varphi)'(t)=f'(\varphi(t))\cdot\vec{a}=\sum_{j}D_{j}f(\varphi(t))\cdot\varphi'(t)\cdot{}a_{j}$\n
+$(f\of\varphi)''(t)=\sum_{j}DD_{j}f(\varphi(t))\cdot\varphi'(t)\cdot{}a_{j}=\sum_{j,k}D_{k}D_{j}f(\varphi(t))\cdot{}a_{k}\cdot{}a_{j}=\vec{a}\tpose{}Hf(\varphi(t))\vec{a}\ge{}0$\n
+
+\par\noindent The one dimensional result implies that $f(\vec{x})=(f\of\varphi)(1)\ge(f\of\varphi)(0)=f(\vec{x_{0}})$.\n
+
+\par\noindent If we also have $Hf(\vec{x})>0$, then $\vec{a}\tpose{}Hf(\vec{x})\vec{a}>0$ for $\vec{a}\in\R^{n}\setminus\set{\vec{0}}$.\n
+
+\pageline
+
+\par\noindent Consider $f\in{}C^{2}(\ptxt{osso}\R^{n},\R)$ with $\vec{x_{0}}$ in the domain of $f$ and $Df(\vec{x_{0}})=\vec{0}$ (that is, $\vec{x_{0}}$ is a critical point for $f$).\n
+
+\par\noindent $Hf(\vec{x_{0}})>0\Rightarrow{}Hf(\vec{x})>0$ for $\vec{x}\in\uball(\vec{x_{0}},\delta)\Rightarrow{}f$ has a strict local minimum at $\vec{x_{0}}$.\n
+$Hf(\vec{x_{0}})\not\ge{}0\Rightarrow{}f$ has a strict local max along some line through $\vec{x_{0}}$. $f$ does \underline{not} have a local max at $\vec{x_{0}}$.\n
+$Hf(\vec{x_{0}})<0\Rightarrow{}f$ has a strict local max at $\vec{x_{0}}$.\n
+$Hf(\vec{x_{0}})\not\le{}0\Rightarrow{}f$ does not have a local max at $\vec{x_{0}}$.\n
+$Hf(\vec{x_{0}})\begin{array}{c}\not\ge\\ \not\le\end{array}0\Rightarrow{}f$ does not have a local max or min at $\vec{x_{0}}$.\n
+
+\ex{Consider $f(x)=x^{3}$, $f_{1}(x)=x^{3}+\frac{x}{10}$, and $f_{2}(x)=x^{3}-\frac{x}{10}$. They're all different -- $f$ is delicate.}
+
+\ex{$f\left(\begin{array}{c}x_{1}\\ x_{2}\end{array}\right)=\left(\begin{array}{cc}x_{1} & x_{2}\end{array}\right)$\n
+$Df\left[\begin{array}{c}0\\ 0\end{array}\right]=\left[\begin{array}{cc}0 & 0\end{array}\right]$ critical point\n
+$Hf\left[\begin{array}{c}0\\ 0\end{array}\right]=\left[\begin{array}{cc}0 & 1\\ 1 & 0\end{array}\right]$\n
+\n
+This gives us a ``saddle point''.}
+
+\end{document}

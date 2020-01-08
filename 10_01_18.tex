@@ -1,0 +1,215 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Inverse Functions}
+\date{10/1/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Let $A^{\ptxt{open}}\subset{}V$, $B^{\ptxt{open}}\subset{}W$. Suppose the following:\n
+$f:A\to{}B$ is differentiable at $\vec{a}$\n
+$g:B\to{}A$ is differentiable at $\vec{b}=f(\vec{a})$\n
+$g\of{}f=\Id_{A}$ (i.e. $g(f(x))=x$)\n
+
+\par\noindent Then $Dg(\vec{b})\of{}Df(\vec{a})=\Id_{A}$\n
+$Dg(\vec{b})$ is a left inverse of $Df(\vec{a})$\n
+$\dim{}V\le\dim{}W$.\n
+
+\begin{enumerate}
+	\item If also $f\of{}g=\Id_{B}$, then
+	\begin{itemize}
+		\item $Df(\vec{a})\of{}Dg(\vec{b})=\Id_{B}$
+		\item $Dg(\vec{b})$ is a $2$-sided inverse of $Df(\vec{a})$
+		\item $\dim{}V\ge\dim{}W$, so $\dim{}V=\dim{}W$
+	\end{itemize}
+	\item If instead we have $\dim{}V=\dim{}W<+\infty$, then
+	\begin{itemize}
+		\item $Dg(\vec{b})$ is \cancel{a} the $2$-sided inverse of $Df(\vec{a})$
+	\end{itemize}
+	\item If $A,B,f,g$ as above, $\dim{}V,\dim{}W<+\infty$, and $f,g$ are continuous, then
+	\begin{itemize}
+		\item $g\of{}f=\Id_{A}$ and $f\of{}g=\Id_{B}\to\dim{}V=\dim{}W$. Proof of this is very hard. It requires new tools, so we'll return to it another time.
+	\end{itemize}
+	\item $\exists{}f:\R\to\R^{2}$ continuous and surjective.
+\end{enumerate}
+
+\defn{A \underline{homeomorphism} is a continuous bijection $f:A\to{}B$ ($A$, $B$ topological spaces) such that $f\inv$ is continuous.}
+
+\ex{$\begin{array}{l}f:[0,2\pi)\to{}S'=\set{(x,y)\in\R^{2}:x^{2}+y^{2}=1}\\ t\mapsto(\cos{}t,\sin{}t)\end{array}$\n
+$f$ is a continuous bijection, but not a homeomorphism.\n
+$f\inv\left(\cos\frac{1}{n},\sin\frac{1}{n}\right)=2\pi-\frac{1}{n}$, so as $n\to+\infty$, $f\inv\to{}2\pi$. But $f\inv(1,0)=0$, so $f\inv$ is not continuous.}
+
+\defn{A \underline{$C^{r}$-diffeomorphism} is a $C^{r}$ bijection $f:A^{\ptxt{osso}V}\to{}B^{\ptxt{osso}W}$ ($V,W$ normed vector spaces) such that $f\inv$ is also $C^{r}$.}
+
+\ex{$\begin{array}{l}f:\R\to\R\\ t\mapsto{}t^{3}\end{array}$ is a homeomorphism, but not a $C^{1}$-diffeomorphism.}
+
+\defn{A complete, normed vector space is called a \underline{Banach space}.}
+
+\thm{(Inverse Function) Given $\vec{a}\in{}A^{\ptxt{open}}\subset\R^{n}$, $f\in{}C^{r}(A,\R^{n})$ for $r\in\N$, $Df(\vec{a})$ is invertible, then there is a $\uball^{\ptxt{open}}$ with $\vec{a}\in\uball$ such that $f|_{_{\uball}}$ is a $C^{r}$-diffeomorphism, i.e., $f$ maps $\uball$ injectively to an open set, $f\inv$ is $C^{r}$.\n
+It turns out this is ok if the dimension is infinite, so long as $V$ and $W$ are Banach spaces.}
+
+\ex{$A=\set{\left(\begin{array}{c}r\\ \theta\end{array}\right)\in\R^{2}:r>0}$\n
+$f\left(\begin{array}{c}r\\ \theta\end{array}\right)=\left(\begin{array}{c}r\cos\theta\\ r\sin\theta\end{array}\right)$\n
+$Df\left(\begin{array}{c}r\\ \theta\end{array}\right)=\left[\begin{array}{cc}\cos\theta & -r\sin\theta\\ \sin\theta & r\cos\theta\end{array}\right]\qquad\det\left(Df\left(\begin{array}{c}r\\ \theta\end{array}\right)\right)=r\cos^{2}\theta-(-r\sin^{2}\theta)=r>0$\n
+So $Df\left(\begin{array}{c}r\\ \theta\end{array}\right)$ is invertible for all $\left(\begin{array}{c}r\\ \theta\end{array}\right)\in{}A$, \underline{but} $f$ is not injective on $A$.\n
+$f\left(\begin{array}{c}r\\ \theta\end{array}\right)=f\left(\begin{array}{c}r\\ \theta+2\pi\end{array}\right)$. So we can get local $C^{\infty}$ inverses, but no global inverse.\n
+$f[A]=\R^{2}\setminus\set{\left(\begin{array}{c}0\\ 0\end{array}\right)}$.}
+
+\par\noindent Some notes: $E=\set{\vec{x}\in{}A:Df(\vec{x})\ptxt{ invertible}}=\set{\vec{x}\in{}A:\deg{}Df(\vec{x})\ne{}0}$.\n
+$E$ is an open set containing $\vec{a}$. The inverse function theorem doesn't assume $E=A$, but it could.\n
+
+\par\noindent\textbf{Proof of the Inverse Function Theorem}\n
+
+\par\noindent Preliminaries: Let $T_{\vec{a}}:\vec{x}\mapsto\vec{x}+\vec{a}$.\n
+\phantom{Preliminaries:} $DT_{\vec{a}}=\Id$\n
+\phantom{Preliminaries:} $g=Df(\vec{a})\inv\of{}T_{-f(\vec{a})}\of{}f\of{}T_{\vec{a}}$\n
+
+\par\noindent Check: $\left.\begin{array}{l}g(\vec{0})=\vec{0}\\ Dg(\vec{0})=\Id\\ f=T_{f(\vec{a})}\of{}Df(\vec{a})\of{}g\of{}T_{-\vec{a}}\end{array}\right\}$ E.T.S. $g$ is a $C^{r}$-diffeomorphism on some open set containing $\vec{0}$.\n
+\n
+
+\par\noindent In proving the inverse function theorem, we may assume $\vec{a}=\vec{0}$, and $Dg(\vec{0})=\Id$.\n
+
+\par\noindent Let $h=g-\Id$, $Dh=Dg-\Id$, $Dh(\vec{0})=0$, $Dh:A\to\Mat(n,m)$ is continuous.\n
+Fix $0<\epsilon<1$. Then $\exists\delta>0$ \st{} $\norm{Dh}<\epsilon$ on $\uball(\vec{0},\delta)$. ($\norm{Dh}$ is defined in the HW3 handout.)\n
+
+\lemma{Given $A^{\ptxt{convex open}}\subset{}V$, $\varphi:V\to{}W$ differentiable, $\norm{D\varphi(\vec{p})}\le{}M\;\forall\vec{p}\in{}A$.\n
+Then $\norm{\varphi(\vec{y})-\varphi(\vec{x})}\le{}M\norm{\vec{y}-\vec{x}}\;\forall\vec{x},\vec{y}\in{}A$.\n
+Proof: HW 5.\proven}
+
+\par\noindent So, for $\vec{x}\in\uball(\vec{0},\delta)$, we have $\norm{h(\vec{x})}=\norm{h(\vec{x})-h(\vec{0})}\le\epsilon\norm{\vec{x}}$ ($\star$).\n
+
+\par\noindent Also, for $\vec{x},\vec{y}\in\uball(\vec{0},\delta)$, we have\n
+$(1-\epsilon)\norm{\vec{y}-\vec{x}}\le\norm{\vec{y}-\vec{x}}-\norm{h(\vec{y})-h(\vec{x})}\le\norm{(\vec{y}-\vec{x})+(h(\vec{y})-h(\vec{x}))}=\norm{g(\vec{y})-g(\vec{x})}$\n
+$\norm{(\vec{y}-\vec{x})+(h(\vec{y})-h(\vec{x}))}\le\norm{\vec{y}-\vec{x}}+\norm{h(\vec{y})-h(\vec{x})}\le(1+\epsilon)\norm{\vec{y}-\vec{x}}$.\n
+
+\par\noindent So $(1-\epsilon)\norm{\vec{y}-\vec{x}}\le\norm{g(\vec{y})-g(\vec{x})}\le(1+\epsilon)\norm{\vec{y}-\vec{x}}$. Thus $g$ is Bi-Lipschitz on $\uball(\vec{0},\delta)$.\n
+And $g(\uball(\vec{0},\delta))\subset\uball(\vec{0},(1+\epsilon)\delta)$.\n
+And $g$ is injective on $\uball(\vec{0},\delta)$.\n
+
+\par\noindent\flag{TO BE CONTINUED...}
+
+\end{document}

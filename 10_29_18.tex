@@ -1,0 +1,224 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+\newcommand{\Ind}{\mathbbm{1}}
+
+% Graph Theory
+\renewcommand{\deg}{\ptxt{deg}}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+\newcommand{\rank}{\ptxt{rank}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+\newcommand{\rInt}{\ptxt{rInt}\>}
+
+% Analysis
+\newcommand{\graph}{\ptxt{graph}}
+\newcommand{\epi}{\ptxt{epi}}
+\newcommand{\epis}{\ptxt{epi}_{S}}
+\newcommand{\hypo}{\ptxt{hypo}}
+\newcommand{\hypos}{\ptxt{hypo}_{S}}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Fubini's Theorem}
+\date{10/29/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall that $\lint{Q}{}f\le\uint{Q}{}f$. We will refer to this result as $(*)$\n
+
+\par\noindent According to \S{}10\#1, $f\le{}g$ on $Q^{\ptxt{box}}$ means $\lint{Q}{}f\overset{\ptxt{(a)}}{\le}\lint{Q}{}g$ and $\uint{Q}{}f\overset{\ptxt{(b)}}{\le}\uint{Q}{}g$.\n
+Proof (a): $f\le{}g$ on $Q$. Then $L(f,P)\le{}L(g,P)\le\lint{Q}{}g$. Now take the supremum over $P$.\proven
+
+\thm{(Fubini's Theorem) Given $A^{\ptxt{box}}\subseteq\R^{k}$, $B^{\ptxt{box}}\subseteq\R^{n}$, $Q=A\times{}B$, $f:Q\to\R$ bounded, then\n
+\inlineeq{\lint{Q}{}f\overset{\ptxt{(1)}}{\le}\lint{\vec{x}\in{}A}{}\lint{\vec{y}\in{}B}{}f(\vec{x},\vec{y})\overset{(2\alpha)}{\underset{(2\beta)}{\le}}\left\{\begin{array}{c}\displaystyle\lint{\vec{x}\in{}A}{}\uint{\vec{y}\in{}B}{}f(\vec{x},\vec{y})\\ \displaystyle\uint{\vec{x}\in{}A}{}\lint{\vec{y}\in{}B}{}f(\vec{x},\vec{y})\end{array}\right\}\overset{(3\alpha)}{\underset{(3\beta)}{\le}}\uint{\vec{x}\in{}A}{}\uint{\vec{y}\in{}B}{}f(\vec{x},\vec{y})\overset{\ptxt{(4)}}{\le}\uint{Q}{}f}}
+
+\cor{$f$ integrable on $Q$ implies that all of these are equal and $\int_{Q}f$ is defined to be equal to all of these terms. Note that $\int_{\vec{y}\in{}B}f(\vec{x},\vec{y})$ may not exist.}
+
+\cor{$f$ integrable on $Q=I_{1}\times\cdots\times{}I_{n}$ for intervals $I_{j}$ implies that $\alignint{Q}{}f=\lint{x_{1}\in{}I_{1}}{}\cdots\uint{x_{n}\in{}I_{n}}{}f(x_{1},\ldots,x_{n})$. These can be upper or lower integrals, but the first must exist.}
+
+\ex{$Q=[-1,1]\times[-1,1]$\n
+$f=\Ind_{\set{0}\times\Q}$\n
+$\mathcal{D}_{f}$ is the set of points where $f$ is discontinuous (so $\mathcal{D}_{f}=\set{0}\times[-1,1]$).\n
+\n
+Then we proved on Friday that $f$ is integrable on $Q$.\n
+$\displaystyle\uint{y\in[-1,1]}{}f(x,y)=\left\{\begin{array}{ll}0 & x\ne{}0\\ 1 & x=0\end{array}\right.$\n
+$\displaystyle\lint{y\in[-1,1]}{}f(x,y)=\left\{\begin{array}{ll}0 & x\ne{}0\\ 0 & x=0\end{array}\right.$\n
+$\displaystyle\alignint{Q}{}f=0$.}
+
+\par\noindent Proof of Fubini's Theorem:\n
+$(*)(a)\Rightarrow(2\alpha)$\n
+$(*)\Rightarrow(2\beta),(3\alpha)$\n
+$(*)(b)\Rightarrow(3\beta)$\n
+$(4)$ follows from $(1)$ using $\uint{}{}f=-\lint{}{}(-f)$\n
+We still need to prove $(1)$.\n
+\n
+Proof (1): Partitions of $Q$ correspond with partitions of $A,B$.
+\[
+\lint{\vec{x}\in{}B}{}f(\vec{x_{0}},\vec{y})\ge\sum_{R_{B}}\underset{\vec{y}\in{}R_{B}}{\inf}(f(\vec{x_{0}},\vec{y})\cdot{}V(R_{B}))\ge\sum_{R_{B}}\underset{R_{A}\times{}R_{B}}{\inf}(f)\cdot{}V(R_{B})
+\]
+
+\[
+\underset{\vec{x_{\phi}\in{}R_{A}}}{\inf}\left(\lint{\vec{y}\in{}B}{}f(\vec{x_{\phi}},\vec{y})\right)\ge\sum_{R_{B}}\underset{R_{A}\times{}R_{B}}{\inf}(f)\cdot{}V(R_{B})
+\]
+
+\[
+\sum_{R_{A}}\left(\underset{\vec{x}\in{}R_{A}}{\inf}\left( \lint{\vec{y}\in{}B}{}f(\vec{x},\vec{y})\right) \right)V(R_{A})\ge\sum_{R_{A}}\sum_{R_{B}}\underset{R_{A}\times{}R_{B}}{\inf}f\cdot{}V(R_{A}\times{}R_{B})=L(f,P)
+\]
+
+\[
+L(f,P)\le\lint{\vec{x}\in{}A}{}\lint{\vec{y}\in{}B}{}f(\vec{x},\vec{y})
+\]
+
+\par\noindent Take the supremum over the possible choices of $P$, and then $(1)$ follows.\n
+
+\defn{For $I\subseteq\R^{n}$, set $m^{*}(E)\overset{\ptxt{def}}{=}\inf\set{\sum_{j=1}^{\infty}V(Q_{j}):E\subset\bigcup_{j=1}^{\infty}Q_{j}^{\ptxt{box}}}$.\n
+$m^{*}(E)$ is called the \underline{outer Lebesgue measure} of $E$.\n
+\n
+For $E$ bounded, we also set $m^{*,J}(E)\overset{\ptxt{def}}{=}\inf\set{\sum_{j=1}^{k}V(Q_{j}):E\subset\bigcup_{j=1}^{k}Q_{j}^{\ptxt{box}}}$.\n
+$m^{*,J}(E)$ is called the \underline{outer Jordan measure} of $E$.\n}
+
+\par\noindent Note that $m^{*}(E)\le{}m^{*,J}(E)$.\n
+
+\prop{$m^{*}(E_{j})=0$ for $j=1,2,\ldots\Rightarrow{}m^{*}(\bigcup_{j=1}^{\infty}E_{j})=0$.\n
+Proof: $(3)\to{}(4)$. Last Wednesday/Thm 11.1 (b)\n}
+
+\par\noindent Similar for $m^{*,J}$:
+\prop{$m^{*,J}(E_{j})=0$ for $j=1,2,\ldots,n\Rightarrow{}m^{*,J}(\bigcup_{j=1}^{n}E_{j})=0$.}
+
+\lemma{$m^{*}(E)=\inf\set{\sum_{j=1}^{\infty}V(Q_{j}):E\subset\bigcup_{j=1}^{\infty}\rInt{}Q_{j}^{\ptxt{box}}}$\n
+If $E$ bounded, then $m^{*,J}(E)=\inf\set{\sum_{j=1}^{k}V(Q_{j}):E\subset\bigcup_{j=1}^{k}\rInt{}Q_{j}^{\ptxt{box}}}$\n
+Proof: Suppose we have $Q_{j}$s covering $E$, $\epsilon>0$.\n
+Pick $\widetilde{Q_{j}}\supset\rInt\widetilde{Q_{j}}\supset{}Q_{j}$, $V(\widetilde{Q_{j}})<v(Q_{j}+\frac{\epsilon}{2j}$.\n
+Get $\rInt(\widetilde{Q_{j}})$ covering $E$ with $\sum{}V_{\widetilde{Q_{j}}}<\sum(V(Q_{j}))+\epsilon$.\proven}
+
+\end{document}

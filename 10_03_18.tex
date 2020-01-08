@@ -1,0 +1,213 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Contraction Mapping Theorem}
+\date{10/3/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent $f:X^{\ptxt{complete metric space}}\to{}X$ $\Rightarrow$ $f$ has a unique fixed point.\n
+
+\par\noindent We define $T_{\vec{y}}:\vec{x}\mapsto\vec{x}+\vec{y}$.\n
+
+\par\noindent From Monday:
+\lemma{Given $\vec{0}\in\mathcal{U}^{\ptxt{open}}\subset\R^{n}$\n
+\phantom{Given }$g:\mathcal{U}\to\R^{n}$ is at least $C^{1}$\n
+\phantom{Given }$g(\vec{0})=\vec{0}$\n
+\phantom{Given }$Dg(\vec{0})=\Id$\n
+\phantom{Given }$0<\epsilon<1$\n
+Then $\exists\delta>0$ \st{} $h=g-\Id$ satisfies (1) $\norm{h(\vec{y})-h(\vec{a})}\le\epsilon\norm{\vec{y}-\vec{x}}$ for $\vec{x},\vec{y}\in\uball(\vec{0},\delta)$\n
+\phantom{Then $\exists\delta>0$ \st{} $h=g-\Id$ satisfies} (2) $(1-\epsilon)\norm{\vec{y}-\vec{x}}\le\norm{g(\vec{y})-g(\vec{x})}\le(1+\epsilon)\norm{\vec{y}-\vec{x}}$\n
+\phantom{Then $\exists\delta>0$ \st{} $h=g-\Id$ satisfies} (3) $g$ is injective on $\uball(\vec{0},\delta)$.}
+
+\par\noindent Let $f:A^{\ptxt{t.s.}}\to{}B^{\ptxt{t.s.}}$.
+\defn{$f$ is \underline{continuous} $\leftrightarrow$ $f\inv(\uball)$ open in $A$ when $\uball$ open in $B$.\n
+$f$ is \underline{open} $\leftrightarrow$ $f(\uball)$ open in $B$ when $\uball$ open in $A$.}
+
+\par\noindent Suppose $f$ is a bijection.\n
+Then $f$ is continuous $\leftrightarrow$ $f\inv$ is open\n
+\phantom{Then }$f$ is open $\leftrightarrow$ $f\inv$ is continuous\n
+\phantom{Then }$f$ is a homeomorphism $\leftrightarrow$ $f$ is open and continuous.\n
+
+\par\noindent Let $\psi_{\vec{y}}:\vec{x}\mapsto\vec{y}-h(\vec{x})$ ($\vec{x}\in\uball$). Pick $0<\widetilde{\delta}<\delta$.\n
+Then $\vec{y}\in\uball(\vec{0},(1-\epsilon)\widetilde{\delta})$, $\vec{x}\in\closure{\uball(\vec{0},\widetilde{\delta})}$ $\Rightarrow$ $\norm{\psi_{\vec{y}}(\vec{x})}\le\norm{\vec{y}}+\norm{h(\vec{x})}\le(1-\epsilon)\widetilde{\delta}+\epsilon\widetilde{\delta}=\widetilde{\delta}$.\n
+So $\psi_{\vec{y}}:\closure{\uball(\vec{0},\widetilde{\delta})}\to\closure{\uball(\vec{0},\widetilde{\delta})}$ with $\norm{\psi_{\vec{y}}(\vec{x_{1}})-\psi_{\vec{y}}(\vec{x_{2}})}=\norm{h(\vec{x_{2}})-h(\vec{x_{1}})}\le\epsilon\norm{\vec{x_{2}}-\vec{x_{1}}}$.\n
+
+\par\noindent Therefore, $\psi_{\vec{y}}:\closure{\uball(\vec{0},\widetilde{\delta})}\to\closure{\uball(\vec{0},\widetilde{\delta})}$ is a contraction. (We use the closure because $\uball(\vec{0},\widetilde{\delta})$ is not a complete metric space, but $\closure{\uball(\vec{0},\widetilde{\delta})}$ is.)\n
+And so, by the contraction mapping theorem, $\exists\vec{x}\in\closure{\uball(\vec{0},\widetilde{\delta})}$ \st{} $\psi_{\vec{y}}(\vec{x})=\vec{x}$. But $\psi_{\vec{y}}(\vec{x})=\vec{y}-h(\vec{x})=\vec{y}-g(\vec{x})+\vec{x}$. So $\vec{y}-g(\vec{x})+\vec{x}=\vec{x}$. So $\vec{y}=g(\vec{x})$. And thus, $g(\uball)\supset{}g(\closure{\uball(\vec{0},\widetilde{\delta})})\supset\uball(\vec{0},(1-\epsilon)\widetilde{\delta})$.\n
+
+\ex{Upgrade to $g(\uball(\vec{0},\delta))\supset\uball(\vec{0},(1-\epsilon)\delta)$.}
+
+\par\noindent Conclude: Add $g(\uball)]\supset{}g(\vec{0},(1-\epsilon)\delta)$ to the lemma. In particular, $\vec{0}\in\Int{}g(\vec{u})$.\n
+
+\newpage
+\thm{(Cousin of Inverse Function Theorem) Given $E^{\ptxt{open}}\subset\R^{n}$, $f\in{}C^{1}(E,\R^{n})$, and $\det{}Df\ne{}0$ on $E$, then the following are true:
+\begin{enumerate}
+	\item $\vec{a}\in{}E\to{}f(\vec{a})\in\Int{}f[E]$.
+	\item $f[E]$ is open in $\R^{n}$.
+	\item $f:E\to{}f[E]$ is an open map.
+\end{enumerate}}
+
+\cor{$f$ as above and injective $\to$ $f:E\to{}f[E]$, is a homeomorphism.}
+
+\par\noindent Proof:\n
+(1) Apply lemma to $g=Df(\vec{a})\inv\of{}T_{-f(\vec{a})}\of{}f\of{}T_{\vec{a}}$. We get $\vec{0}\in\Int(\im(g))$. $\vec{0}=Df(\vec{a})(\vec{0})\in\im(T_{-\vec{a}}\of{}f\cancel{\of{}T_{\vec{a}}})$. We ignore $T_{\vec{a}}$ because it's bijective.\n
+Apply $T_{f(\vec{a})}$. Then $f(\vec{a})\in\Int(\im(f))$, so $f(\vec{a})\in\Int(f[E])$.\n
+(2) Since all $f(\vec{a})\in\Int(f[E])$, $f[E]$ is open.\n
+(3) For $\uball^{\ptxt{open}}\subset{}E$, apply (2) to $f|_{\uball}$.\n
+\proven
+
+\prop{$f$ as in cor and $f\in{}C^{r}$ $\Rightarrow$ $f\inv\in{}C^{r}$.}
+
+\par\noindent The inverse function theorem follows from the lemma, the corollary, and the proposition.\n
+
+\par\noindent Proof: For $r=1$, $g=f\inv$, $\vec{b}=f(\vec{a})$, $M=Df(\vec{a})$, we need $\displaystyle\frac{g(\vec{b}+\vec{k})-g(\vec{b})-M\inv\vec{k}}{\norm{\vec{k}}}\to\vec{0}$ as $\vec{k}\to\vec{0}$.\n
+
+\par\noindent $\displaystyle\frac{g(\vec{b}+\vec{k})-g(\vec{b})-M\inv\vec{k}}{\norm{\vec{k}}}-\frac{\vec{h}-M\inv\vec{k}}{\norm{\vec{k}}}=-M\inv\left(\frac{\vec{k}-M\vec{h}}{\norm{\vec{k}}}\right)=-M\inv\left(\frac{f(\vec{a}+\vec{h})-f(\vec{a})-M\vec{h}}{\norm{\vec{h}}}\right)\left(\frac{\norm{\vec{h}}}{\norm{\vec{k}}}\right)$.\n
+
+\par\noindent $\left(\frac{\norm{\vec{h}}}{\norm{\vec{k}}}\right)$ is bounded for $\norm{\vec{k}}<\delta$ by lemma (2). So it follows that $\vec{k}\to\vec{0}$ as $\vec{h}\to\vec{0}$. So $\frac{f(\vec{a}+\vec{h})-f(\vec{a})-M\vec{h}}{\norm{\vec{h}}}\to\vec{0}$. So $M\inv\vec{0}=\vec{0}$. Thus, as $\vec{k}\to\vec{0}$, the other thing goes to $\vec{0}$.\n
+
+\par\noindent We've now shown that $g$ is differentiable. $Dg(\vec{b})=Df(g(\vec{b}))\inv$. Still need $Dg$ continuous.\n
+
+\[
+f[\uball]\overset{g}{\underset{\ptxt{cts}}{\to}}\uball\overset{Df}{\underset{\ptxt{cts}}{\to}}\GL(n,\R)\overset{\ptxt{inversion}}{\underset{\ptxt{Thm 2.14}}{\to}}\GL(n,\R)
+\]
+
+\par\noindent So $Dg$ is the composition of continuous maps, and is therefore continuous. So $Dg$ is continuous, and we're done for $r=1$. For $r>1$, recall that $g\in{}C^{r}\Leftrightarrow{}Dg\in{}C{r-1}$.\n
+
+\lemma{$C^{r-1}$ mapping closed under composition.\n
+Proof: Will be done on Friday.}
+
+\par\noindent Induction on $r$. Assume that prop holds for $C^{r-1}$. Then
+
+\[
+f(\uball)\overset{g}{\underset{C^{r-1}}{\to}}\uball\overset{Df}{\underset{C^{r-1}}{\to}}\GL(n,\R)\overset{\ptxt{inversion}}{\underset{C^{\infty}}{\to}}\GL(n,\R)
+\]
+
+\par\noindent So $Dg\in{}C^{r-1}$.\proven
+
+\end{document}

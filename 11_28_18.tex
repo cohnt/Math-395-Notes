@@ -1,0 +1,268 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\mapsdown}{\rotatebox[origin=c]{-90}{$\mapsto$}\mkern2mu}
+\newcommand{\mapsup}{\rotatebox[origin=c]{90}{$\mapsto$}\mkern2mu}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{The First Fundamental Theorem of Calculus for $1$-Forms}
+\date{11/28/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Let $f:[a,b]\to\R^{n}$\n
+
+\prop{TFAE:
+\begin{enumerate}[label=(\arabic*)]
+	\item $f$ extends to a function in $C^{k}(\R,\R^{n})$
+	\item $f\in{}C([a,b])$ and $f|_{(a,b)}$ is $C^{k}$ and $\lim_{t\searrow{}a}f^{(j)}(t),\lim_{t\nearrow{}b}f^{(j)}(t)$ exist and are finite for $j=1,\ldots,k$.
+\end{enumerate}}
+
+\par\noindent Proof (1)$\Rightarrow$(2): Trivial\n
+Proof (2)$\Rightarrow$(1): Use Taylor polynomials to extend\n
+
+\defn{$f\in{}C_{pw}^{k}\overset{\ptxt{def}}{\Leftrightarrow}f\ptxt{ cts on }[a,b]$ and $f|_{[t_{j-1},t_{j}]}\in{}C^{k}$ for each $j$ (where the $t_{j}$'s partition $[a,b]$). We say that $f$ is \underline{piecewise $C^{k}$}.}
+
+\defn{Let $\omega$ be a $1$-form on $A^{\ptxt{open}}\subseteq\R^{n}$, $I=[a,b]\subset\R$, and $\alpha\in{}C_{pw}^{1}(I,A)$ (a ``path in $A$'').\n
+Then $\displaystyle\int_{Y_{\alpha}}\omega\overset{\ptxt{def}}{=}\int_{I}\alpha^{*}\omega=\int_{I}(\omega\of\alpha)D\alpha$.}
+
+\par\noindent Rewrite: $\displaystyle\int_{Y_{\alpha}}\sum_{i=1}^{n}\omega_{i}dx_{i}=\int_{I}\sum_{i=1}^{n}\omega_{i}(\alpha(t))\frac{dx_{i}}{dt}$\n
+
+\par\noindent The idea is that $\vec{x}$ is the position at time $t$ given by $\alpha(t)$, i.e., $x_{j}=\alpha_{j}(t)$.\n
+
+\par\noindent From Monday: For $\alpha\in{}C^{1}$, we have $\displaystyle\int_{Y_{\alpha}}df=\bigtriangleup_{Y_{\alpha}}f\overset{\ptxt{def}}{=}f(\alpha(b))-f(\alpha(a))$.\n
+Exercise: show this still works for $\alpha\in{}C_{pw}^{1}$.\n
+
+\thm{Given $A^{\ptxt{conn},\ptxt{open}}\subseteq\R^{n}$, $f\in{}C^{1}(A,\R)$. Then $df=0$ on $A$ if and only if $f$ is constant.}
+
+\par\noindent HW3\#4: Choose $\alpha\in{}C([0,1],A)$ such that $\alpha(0)=a$, and $\alpha(1)=b$.\n
+Proof $\Leftarrow$: trivial\n
+Proof $\Rightarrow$: Use $\bigtriangleup_{Y_{\alpha}}f=\sum_{j}\bigtriangleup_{j^{\ptxt{th}}\ptxt{ piece}}f=0$.\n
+
+\par\noindent Note: for $A$ open, \textit{disconnected}, $df=0\Leftrightarrow{}f$ is constant on each connected component of $A$.\n
+
+\par\noindent Problem: Can we rewrite a $1$-form integral $\int_{Y_{\alpha}}\omega$ as a scalar integral $\int_{Y_{\alpha}}gds$?\n
+Recall: $\displaystyle\int_{Y_{\alpha}}gds=\int_{I}(g\of\alpha)V(D\alpha)=\int_{I}(g\of\alpha)\sqrt{\det{}D\alpha\tpose{}D\alpha}=\int_{I}(g\of\alpha)\norm{D_{\alpha}}=\int_{I}(g\of\alpha)\norm{\alpha'}$\n
+$\displaystyle\int_{Y_{\alpha}}\omega=\int_{I}(\omega\of\alpha)D\alpha=\int_{I}(\omega\of\alpha)a'$.\n
+
+\par\noindent So match if $(g\of\alpha)\norm{a'}=(\omega\of\alpha)\alpha'$, i.e., if for any point $\vec{p}=\alpha(t)\in{}Y$, we have $g(\vec{p})\norm{\alpha'(t)}=\omega(\vec{p})\alpha'(t)$ -- $g(\vec{p})=\omega(\vec{p})\cdot\frac{\alpha'(t)}{\norm{\alpha'(t)}}$.\n
+
+\par\noindent Trouble if $\alpha'(t)=0$. But if $\alpha\in{}C^{1}$, $\alpha$ injective, then $\alpha'\ne{}0$.\n
+
+\par\noindent Set $T:Y\to\R^{n}$, with $\alpha(t)\mapsto\frac{\alpha'(t)}{\norm{\alpha'(t)}}$. $T$ is the unit tangent vector function.\n
+
+\par\noindent We get $\displaystyle\int_{Y_{\alpha}}(\omega\cdot{}T)ds=\int_{Y_{\alpha}}\omega$. Reverse: $\displaystyle\int{}gds=\int{}gT^{\tpose}$.\n
+
+\thm{FTC1a for $1$-forms\n
+Given $\omega$ $1$-form on $A^{\ptxt{open},\ptxt{conn}}\subset\R^{n}$.\n
+Then TFAE:\n
+\begin{enumerate}[label=(\arabic*)]
+	\item $\omega=df$ for some $f\in{}C^{1}(A,\R)\overset{\ptxt{def}}{\Leftrightarrow}\omega$ is \underline{exact} on $A$.
+	\item $\int_{Y_{\alpha}}\omega=0$ when $\alpha\in{}C_{pw}^{1}([a,b],A)$ with $\alpha(a)=\alpha(b)$.
+	\item $\int_{Y_{\alpha_{1}}}\omega=\int_{Y_{\alpha_{2}}}\omega$ when $\alpha_{j}\in{}C_{pw}^{1}([a_{j},b_{j}],A)$ with $\alpha_{1}(a_{1})=\alpha_{2}(a_{2})$ and $\alpha_{1}(b_{1})=\alpha_{2}(b_{2})$.\n
+	``Path Independence''
+\end{enumerate}}
+
+\par\noindent Proof (1)$\Rightarrow$(2): $\int_{Y_{\alpha}}df\overset{ptxt{FTC2}}{=}f(\alpha(b))-f(\alpha(a))=0$.\n
+
+\par\noindent Proof (2)$\Rightarrow$(3): Form a single path $\alpha$ from $\alpha_{1}$ and the reverse of $\alpha_{2}$.\n
+$\displaystyle\int_{Y_{\alpha_{1}}}\omega-\int_{Y_{\alpha_{2}}}\omega=\int_{Y_{\alpha}}\omega=0$. So $\displaystyle\int_{Y_{\alpha_{1}}}\omega=\int_{Y_{\alpha_{2}}}\omega$\n
+
+\par\noindent Proof (3)$\Rightarrow$(1): We can define $\int_{x}^{y}\omega$ for $x,y\in{}A$ with $\int_{x}^{y}\omega+\int_{y}^{z}\omega=\int_{x}^{z}\omega$. Fix $x_{0}\in{}A$, define $f(x)=\int_{x_{0}}^{x}\omega$.\n
+Claim: $df=\omega$, i.e., $\star=\frac{f(x+h)-f(x)-\omega(x)\cdot{}h}{\norm{h}}\to{}0$ as $h\to{}0$.\n
+But $f(x+h)-f(x)=\int_{x}^{x+h}\omega=\int_{0}^{1}\omega(x+th)\cdot{}h$. So $\star=\frac{\int_{0}^{1}(\omega(x+th)-\omega(x))\cdot{}hdt}{\norm{h}}$\n
+Thus, $\norm{\star}\le\underset{0\le{}t\le{}h}{\max}\norm{\omega(x+th)-\omega(x)}\to{}0$ as $h\to{}0$.\n
+
+\par\noindent Exercise: this still works for $C_{pw}^{1}$, $C_{pw}^{k}$, and $C_{pw}^{\infty}$.\n
+
+\par\noindent An alternate approach: Need $D_{j}f=\omega_{j}$ (a system of partial differential equations).\n
+
+\par\noindent Recall: Thm 6.3 gives us $f\in{}C^{2}\Rightarrow{}D_{k}D_{j}f=D_{j}D_{k}f$. $D_{j}f=\omega_{j}$ and $D_{k}f=\omega_{k}$. So $D_{k}\omega_{j}=D_{j}\omega_{k}$.\n
+So $\omega$ is $C^{1}$ and exact on $A$, and thus $D_{k}\omega_{j}=D_{j}\omega_{k}\overset{\ptxt{def}}{\Leftrightarrow}\omega$ is closed on $A$.\n
+
+\thm{FTC1b for $1$-forms\n
+Given $\omega$ $C^{1}$ closed $1$-form, $\alpha\in{}C^{2}$, then $\alpha^{*}\omega$ closed.\n
+Pf1: Wait for Thm 32.3\n
+Pf2: Read $4$-line computation in Lemma J.6}
+
+\end{document}

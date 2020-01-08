@@ -1,0 +1,260 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivides}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Change of Variable Theorem}
+\date{11/12/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\thm{(Change of Variables Theorem) Given $A^{\ptxt{osso}\R^{n}}\xrightarrow[C^{1}\ptxt{-diffeo}]{g}B^{\ptxt{osso}\R^{n}}\xrightarrow[\ptxt{cts}]{f}\R$, then $(\ptxt{ext})\int_{B}f\overset{\ptxt{def}}{=}(\ptxt{ext})\int_{A}(f\of{}g)\abs{\det{}Dg}$.}
+
+\par\noindent Special Case: $g:\vec{x}\mapsto{}r\vec{x}$ for $r>0$. Then $(\ptxt{ext})\int_{\vec{x}\in{}B}f(\vec{x})=(\ptxt{ext})\int_{\vec{x}\in{}A}f(r\vec{x})r^{n}$.\n
+
+\ex{Let $B^{n}(r)=\set{\vec{x}\in\R^{n}:\norm{\vec{x}}<r}=U(\vec{0},r)$.\n
+Then $v(B^{n}(r))=r^{n}v(B^{n}(1))=r^{n}\lambda_{n}$.}
+
+\par\noindent Goal: compute $\lambda_{n}$. Guess the behavior of $\frac{v(B^{n}(1)}{v([-1,1]^{n})}$ for large $n$.
+\[
+\lambda_{n}=\int_{B^{n}(1)}1=\int_{\vec{x}\in{}B^{k}(1)}\paren{\;\int_{\vec{y}\in{}B^{n-k}(\sqrt{1-\norm{\vec{x}}^{2}})}1}=\int_{\vec{x}\in{}B^{k}(1)}\paren{1-\norm{\vec{x}}^{2}}^{\frac{n-k}{2}}\lambda_{n-k}
+\]
+
+\par\noindent This formula becomes the nicest for $k=2$. So
+\[
+\lambda_{n}=\lambda_{n-2}\int_{B^{2}(1)}\paren{1-\norm{\vec{x}}^{2}}^{\frac{n}{2}-1}=\lambda_{n-2}\int_{B^{2}(1)\cut((-1,0]\times\set{0})}\paren{1-\norm{\vec{x}}^{2}}^{\frac{n}{2}-1}+\lambda_{n-2}\underbrace{\int_{(-1,0]\times\set{0}}\paren{1-\norm{\vec{x}}^{2}}^{\frac{n}{2}-1}}_{=0\ptxt{, because its over a set of measure $0$}}
+\]
+
+\par\noindent Thus,
+\begin{align*}
+\lambda_{n}=\lambda_{n-2}\int_{B^{2}(1)\cut((-1,0]\times\set{0})}\paren{1-\norm{\vec{x}}^{2}}^{\frac{n}{2}-1} & =\lambda_{n-2}\int_{\begin{subarray}{c}0<r<1\\ -\pi<\theta<\pi\end{subarray}}\paren{1-r^{2}}^{\frac{n}{2}-1}r\\
+ & =\lambda_{n-2}\int_{0}^{1}\int_{-\pi}^{\pi}\paren{1-r^{2}}^{\frac{n}{2}-1}rd\theta{}dr\\
+ & =\lambda_{n-2}\int_{0}^{1}2\pi{}r\paren{1-r^{2}}^{\frac{n}{2}-1}dr\qquad\qquad\begin{array}{c}u=1-r^{2}\\ du=-2rdr\end{array}\\
+ & =\lambda_{n-2}\int_{1}^{0}\pi{}u^{\frac{n}{2}-1}du\\
+ & =\pi\lambda{n-2}\int_{0}^{1}u^{\frac{n}{2}-1}du\\
+ & =\pi\lambda_{n-2}\brack{\frac{u^{\frac{n}{2}}}{\frac{n}{2}}}_{u=0}^{u=1}\\
+ & =\pi\lambda_{n-2}\cdot\frac{1}{\frac{n}{2}}\\
+ & =\frac{2\pi\lambda_{n-2}}{n}
+\end{align*}
+
+\par\noindent $\lambda_{2}\overset{\ptxt{def}}{=}\pi$: the area of the unit circle. So $\lambda_{4}=\frac{\pi^{2}}{2}$, $\lambda_{6}=\frac{\pi^{3}}{6}$, $\lambda_{2n}=\frac{\pi^{n}}{n!}$.\n
+$\lambda_{1}\overset{\ptxt{def}}{=}2$: the length of the unit interval $(-1,1)$. So $\lambda_{3}=\frac{4\pi}{3}$, $\lambda_{5}=\frac{8\pi^{2}}{15}$, $\lambda_{2n+1}=\frac{2^{n+1}\pi^{n}}{(2n+1)(2n-1)\cdots{}3\cdot{}1}$
+
+\par\noindent So $\displaystyle\lambda_{n}=\left\{\begin{array}{ll}\frac{\pi^{n/2}}{(n/2)!} & \quad{}2\divides{}n\\ \frac{2^{\frac{n+1}{2}}\pi^{\frac{n-1}{2}}}{n\cdot(n-2)\cdot\cdots\cdot{}3\cdot{}1} & \quad{}2\ndiv{}n\end{array}\right.$\n
+
+\par\noindent $\lambda_{n}=v(B^{n}(1))$\n
+$\mu_{n}=v([-1,1]^{n})=v\paren{\set{\vec{x}\in\R^{n}:\norm{\vec{x}}_{\sup}<1}}=2^{n}$\n
+$K_{n}=v\paren{\set{\vec{x}\in\R^{n}:\abs{x_{1}}+\abs{x_{2}}+\cdots+\abs{x_{n}}<1}}=\frac{2^{n}}{n!}$. Note that $\abs{x_{1}}+\cdots+\abs{x_{n}}\overset{\ptxt{def}}{=}\norm{\vec{x}}_{1}$.\n
+
+\par\noindent $K_{n}\le\lambda_{n}\le\mu_{n}$. Check that $\frac{\lambda_{n}}{\mu_{n}}\to{}0$, and that strict inequalities for $n>1$.\n
+
+\par\noindent Proof the Change of Variables Theorem:\n
+(With the temporarily added assumptions $A,B$ bounded and rectifiable, $g$ a diffeomorphism from a neighborhood of $\closure{A}$ to a neighborhood of $\closure{B}$)\n
+
+\par\noindent Special case 1: $g:\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{j}\\ \vdots\\ x_{k}\\ \vdots\\ x_{n}\end{array}}\mapsto\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{k}\\ \vdots\\ x_{j}\\ \vdots\\ x_{n}\end{array}}$ coordinate transposition. $\deg{}Dg=-1$, so $\abs{\det{}Dg}=1$.\n
+Thus, $\displaystyle\int_{B}f=\int_{A}f\of{}g$. This works because reorienting boxes doesn't change their volume.\n
+
+\par\noindent Special case 2: $E^{\ptxt{bdd},\ptxt{open},\ptxt{rect}}\subset\R^{n+1}$, $\varphi,\psi\in{}C(\closure{E},\R)$, $\varphi<\psi$ on $E$,\n
+$B=\set{\vec{x}\in\R^{n}:\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\end{array}},\varphi\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\end{array}}<x_{n}<\psi\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\end{array}}}$, and $g^{\ptxt{diffeo}}:\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\\ x_{n}\end{array}}\mapsto\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\\ \alpha(\vec{x})\end{array}}$.\n
+Then
+\begin{enumerate}[label=(\alph*)]
+	\item $A$ and $B$ are rectifiable (by study ex 5, HW9, or lemma 14.3)
+	\item For fixed $\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n}\end{array}}$, we have $\vec{x}\in{}A\Leftrightarrow{}x_{n}\in{}I$ where $I$ is an interval determined by $\paren{\begin{array}{c}x_{1}\\ \vdots\\ x_{n-1}\end{array}}$.
+	\item $\det{}Dg=D_{n}\alpha$, so $\abs{\deg{}Dg}=\abs{\det{}D_{n}\alpha}$.
+\end{enumerate}
+
+\par\noindent Thus
+\[
+\int_{B}f=\int_{\paren{\begin{subarray}{c}x_{1}\\ \vdots\\ x_{n-1}\end{subarray}}\in{}E}\paren{\int_{x_{n}\in\paren{\varphi\paren{\begin{subarray}{c}x_{1}\\ \vdots\\ x_{n-1}\end{subarray}},\psi\paren{\begin{subarray}{c}x_{1}\\ \vdots\\ x_{n-1}\end{subarray}}}}f}=\int_{\paren{\begin{subarray}{c}x_{1}\\ \vdots\\ x_{n-1}\end{subarray}}\in{}E}\paren{\;\int_{\alpha(\vec{x})\in(\cdots,\cdots)}(f\of{}g)\cdot\abs{D_{n}\alpha}}=\int_{A}(f\of{}g)\det{}Dg
+\]
+
+\prop{Given $A\xrightarrow[\ptxt{diffeo}]{g}B\xrightarrow[\ptxt{diffeo}]{h}C\xrightarrow[\ptxt{cts}]{f}\R$, Then the COVT holds for $g$ and $h$.\n
+Proof:\n
+$\extint_{C}f=\extint_{B}f\of{}h\abs{\det{}Dh}=\extint_{A}((f\of{}h)\of{}g)\abs{\det{}Dh}\cdot{}g\abs{\det{}Dg}=\extint_{A}f\of{}h\of{}g\abs{\det{}D(h\of{}g)}$\n
+\proven}
+
+\par\noindent Strategy: Factor general diffeomorphic maps into composition of maps of types (1) and (2).\n
+Good news: we can do this!\n
+Bad news: good news is only local.
+
+\end{document}

@@ -1,0 +1,223 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+\newcommand{\rank}{\ptxt{rank}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+\newcommand{\rInt}{\ptxt{rInt}\>}
+
+% Analysis
+\newcommand{\graph}{\ptxt{graph}}
+\newcommand{\epi}{\ptxt{epi}}
+\newcommand{\epis}{\ptxt{epi}_{S}}
+\newcommand{\hypo}{\ptxt{hypo}}
+\newcommand{\hypos}{\ptxt{hypo}_{S}}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Beginning Integration}
+\date{10/22/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent On Friday, we proved that given $f\in{}C^{2}(\Omega^{\ptxt{convex osso}\R^{n}},\R)$, $Hf(\vec{x})\ge{}0$ $\forall\vec{x}\in\Omega$, and $Df(\vec{x_{0}})=0$, then $f(\vec{x})\ge{}f(\vec{x_{0}})$ for all $\vec{x}\in\Omega$.\n
+
+\cor{Given $f\in{}C^{2}(\Omega^{\ptxt{convex osso}\R^{n}},\R)$ and $Hf\ge{}0$ on $\Omega$, then $f(\vec{x})\ge{}f(\vec{x_{0}})-Df(\vec{x_{0}})(\vec{x}-\vec{x_{0}})-f(\vec{x_{0}})$.\n
+This is a strict inequality for $\vec{x}\ne\vec{x_{0}}$ if $Hf>0$ on $\Omega$.\n
+Proof: Let $g(\vec{x})=f(\vec{x})-Df(\vec{x_{0}})(\vec{x}-\vec{x_{0}})-f(\vec{x_{0}})$.\n
+Then $Dg(\vec{x})=Df(\vec{x})-Df(\vec{x_{0}})$ and $Hg(\vec{x})=Hf(\vec{x})$.\n
+Notice that $Dg(\vec{x_{0}})=\vec{0}$. So $g(\vec{x})\ge{}g(\vec{x_{0}})$.\proven}
+
+\defn{For $\psi:\Omega\to\R$, the \underline{epigraph} of $\psi$ is $\set{(\vec{x},y)\in\Omega\times\R:y\ge\psi(\vec{x})}$.}
+
+\defn{The opposite of the epigraph is the \underline{hypograph}.}
+
+\cor{Given $f\in{}C^{2}(\Omega^{\ptxt{convex osso}\R^{n}},\R)$ and $Hf\ge{}0$, then\n
+$\epi(f)=\bigcap_{\vec{x_{0}}\in\Omega}\set{(\vec{x},y)\in\Omega\times{}\R:y\ge{}f(\vec{x_{0}})+Df(\vec{x_{0}})(\vec{x}-\vec{x_{0}})}$\n
+Proof: $(\vec{x},y)\in\epi(f)\Rightarrow(\vec{x},y)\in\ptxt{RHS}$ by previous result. So assume $(\vec{x},y)\in\ptxt{RHS}$ Then let $\vec{x_{0}}=\vec{x}$; then $y\ge{}f(\vec{x})\Rightarrow(\vec{x},y)\in\epi(f)$.\proven}
+
+\cor{Same hypothesis as above $\Rightarrow$ the epigraph is convex.}
+
+\defn{For $\Omega^{\ptxt{convex}}\subset\R^{n}$, $f:\Omega\to\R$, $f$ is convex $\overset{\ptxt{def}}{\Leftrightarrow}\epi(f)$ is convex.\n
+\phantom{For $\Omega^{\ptxt{convex}}\subset\R^{n}$, $f:\Omega\to\R$, $f$ is convex}$\overset{\ptxt{HW8}}{\Leftrightarrow}f((1-t)\vec{x_{0}}+t\vec{x_{1}})\le{}(1-t)f(\vec{x_{0}})+tf(\vec{x_{1}})$\n
+\phantom{For $\Omega^{\ptxt{convex}}\subset\R^{n}$, $f:\Omega\to\R$, $f$ is convex$\overset{\ptxt{HW8}}{\Leftrightarrow}$} for $\vec{x_{0}},\vec{x_{1}}\in\Omega$ and $0\le{}t\le{}1$.}
+
+\par\noindent Assume $f\in{}C^{2}(\Omega,\R)$.\n
+\begin{tabular}{rcl}
+$Hf(\vec{x_{0}})\ne{}0$ & $\Leftrightarrow$ & $\vec{a}\tpose{}Hf(\vec{x_{0}})\vec{a}<0$ for some $\vec{a}$.\\
+ (Friday) & $\Rightarrow$ & $(f\of\varphi)''(0)<0$ for $\varphi(t)=\vec{x_{0}}+t\vec{a}$\\
+ & $\Rightarrow$ & $\epi(f)\cap\set{(\vec{x_{0}}+t\vec{a},y):t,y\in\R}$ is affine, and hence convex.\\
+ & $\Rightarrow$ & $\epi(f)$ is \textit{not} convex.\\
+\end{tabular}\n\n
+
+\cor{Given $f\in{}C^{2}(\Omega^{\ptxt{convex osso}\R^{n}},\R)$, then $f$ is convex if and only if $Hf(\vec{x})\ge{}0$ for all $\vec{x}\in\Omega$.}
+
+\begin{tabular}{c|c|c|}
+& $\R$ & $\R^{n}$\\ \hline
+Reimann/Darboux & 295/297 & Munkres/Lecture\\ \hline
+Lebesgue & IBL & Later\\ \hline
+\end{tabular}
+
+\par\noindent Lebesgue integration is more robust and coherent.\n
+
+\par\noindent $Q=[a_{1},b_{1}]\times\cdots\times[a_{n},b_{n}]$. Munkres calls this a rectangle. We'll call it a box.\n
+
+\defn{$\displaystyle{}V(Q)\overset{\ptxt{def}}{=}(b_{1}-a_{1})\cdots(b_{n}-a_{n})=\prod_{i=1}^{n}(b_{i}-a_{i})$. In IBL, we may say $m(Q)$.}
+
+\par\noindent We want to define $\int_{Q}f$ for $f:Q\to\R$ (assume $Q$ is bounded).\n
+
+\par\noindent We hope to have $\int_{Q}c=c\cdot{}V(Q)$, and $f\le{}g\to\int_{Q}f\le\int_{Q}g$.\n
+
+\par\noindent Subdivide each $[a_{j},b_{j}]$ with finitely many partition points. We want $\int_{Q}f=\sum\int_{R}f$ for $R$ subbox of $Q$. So...\n
+
+\par\noindent Set $m_{R}(f)=\underset{R}{\inf{}}f=\inf\set{f(\vec{x}):\vec{x}\in{}R}$\n
+$M_{R}(f)=\underset{R}{\sup{}}f$\n
+$L(f,P)\overset{\ptxt{def}}{=}\sum_{R}m_{R}(f)\cdot{}V(R)$\n
+$U(f,P)\overset{\ptxt{def}}{=}\sum_{R}M_{R}(f)\cdot{}V(R)$\n
+
+\par\noindent Then we have $L(f,P)\le{}U(f,P)$.\n
+
+\defn{$P'$ \underline{refines} $P$ if and only if $P'$ is obtained from $P$ by adding more partition points.}
+
+\par\noindent Then $L(f,P)\le{}L(f,P')\le{}U(f,P')\le{}U(f,P)$.\n
+
+\lemma{$P,P'$ arbitrary partitions of $Q$. Then $L(f,P)\le{}U(f,P')$.\n
+Proof: Let $P''$ use all partition points in $P$ and $P'$. Then it refines both, so\n
+$L(f,P)\le{}L(f,P'')\le{}U(f,P'')\le{}U(f,P')$.\proven}
+
+\defn{$\displaystyle\underline{\int_{Q}}f\overset{\ptxt{def}}{=}\underset{P}{\sup{}}L(f,P)$\n}
+
+\defn{$\displaystyle\overline{\int_{Q}}f\overset{\ptxt{def}}{=}\underset{P}{\inf{}}U(f,P)$\n}
+
+\defn{Lemma + ${}^{295\#11}/{}_{297\#12}$ $\displaystyle\Rightarrow\underline{\int_{Q}}f=\overline{\int_{Q}}f\overset{\ptxt{def}}{=}\int_{Q}f$ (if they match).\n}
+
+\thm{(``Riemann Criterion'' or ``Cauchy Criterion'' for Integrability)\n
+$f$ is (Riemann)-integrable on $Q$ $\Leftrightarrow$ $\forall\epsilon>0$, $\exists{}P$ partition \st{} $U(f,P)-L(f,P)<\epsilon$.}
+
+\end{document}

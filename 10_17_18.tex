@@ -1,0 +1,190 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+\newcommand{\rank}{\ptxt{rank}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Lagrange Multiplier Theorem}
+\date{10/17/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Given $f\in{}C^{1}(\Omega^{\ptxt{osso}\R^{k+n}},\R)$, $\vec{p}\in{}E=f\inv(\vec{0})$, $\rank{}Df(\vec{p})=n$, $h\in{}C^{1}(\Omega,\R)$, and $h|_{E}$ has a local max or min at $\vec{p}$.\n
+Then $\exists\lambda_{1},\ldots,\lambda_{n}$ \st{} $Dh(\vec{p})=\lambda_{1}Df_{1}(\vec{p})+\cdots+\lambda_{n}Df_{n}(\vec{p})$. $\lambda_{j}$ are called the lagrange multipliers.\n
+
+\ex{What points of $xyz=1$ lie closest to $\vec{0}$?\n
+Let $f(x,y,z)=xyz-1$ and $h(x,y,z)=x^{2}+y^{2}+z^{2}$. Minimize $h$ over $f\inv(\vec{0})=E$.\n
+\n
+Is the existance of the minimum guaranteed? In this case, yes. Pick $R$ \st{} $R>h(x_{0},y_{0},z_{0})$ for some $(x_{0},y_{0},z_{0})\in{}E\ne\emptyset$. Let $K=\set{(x,y,z):x^{2}+y^{2}+z^{2}\le{}R}$. Then $\inf{}K=\inf{}E\cap{}K$, and $E\cap{}K$ is compact. By the extreme value theorem, $\inf{}E\cap{}K=\min{}E\cap{}K$.\n
+\n
+$Dh=\left[\begin{array}{lll}2x & 2y & 2z\end{array}\right]$ and $Df=\left[\begin{array}{lll}yz & xz & xy\end{array}\right]$. So we have the following system of equations:\n
+\inlineeq{\left\{\begin{array}{l}2x=\lambda{}yz\\ 2y=\lambda{}xz\\ 2z=\lambda{}xy\\ xyz=1\end{array}\right.}
+Solving this system of equations gives us $(1,1,1)$; $(-1,-1,1)$; $(-1,1,-1)$, and $(1,-1,-1)$.}
+
+\par\noindent For extra practice, try $x^{a}+y^{b}+c^{z}=1$\n
+
+\ex{$B\in\Mat(n,n,\R)$ symmetric (that is, $B=B\tpose$).\n
+Let $h(\vec{x})=\vec{x}\tpose{}B\vec{x}$. Goal: maximize $h$ on $\norm{\vec{x}}^{2}=1$. Use $f(\vec{x})=\norm{\vec{x}}^{2}-1$.\n
+\n
+Check that $Df$ has rank $1$ when $\norm{\vec{x}}^{2}=1$. $Df(\vec{x})=2\vec{x}\tpose$. Then the max exists, and it occurs at a solution of $Dh=\lambda{}Df$.\n
+\n
+Claim: $Dh(\vec{x})=2\vec{x}\tpose{}B$.\n
+Proof: $h(\vec{x})=\sum_{j,k}b_{jk}x_{j}x_{k}$. So $D_{m}h(\vec{x})=\sum_{k}b_{mk}x_{k}+\sum_{j}b_{jm}x_{j}$.\n
+By symmetry, $D_{m}h(\vec{x})=2\sum_{j}b_{jm}x_{j}=(2\vec{x}\tpose{}B)_{m}$. So $Dh(\vec{x})=2\vec{x}\tpose{}B$\n
+Proof 2: $Dh(\vec{x})\cdot\vec{u}=h'(\vec{x};\vec{u})=\vec{u}\tpose{}B\vec{x}+\vec{x}\tpose{}B\vec{u}=2\vec{x}\tpose{}B\vec{u}$.\n
+\n
+We need $Dh(\vec{x})=\lambda{}Df(\vec{x})$. $Dh(\vec{x})=2\vec{x}\tpose{}B$ and $Df(\vec{x})=2\lambda\vec{x}\tpose$. So we have $B\vec{x}=\lambda\vec{x}$. So $\lambda$ is an eigenvalue and $\vec{x}$ is an eigenvector (call it $\vec{x_{1}}$).\n
+\n
+Note that $h(\vec{x})=\vec{x}\tpose{}B\vec{x}=\lambda$, i.e., $\lambda=\max{}h$ over the sphere. Rename $\mu_{1}$ as the eigenvalue.\n
+\n
+We have previously proved that every symmetric matrix has a real eigenvalue.}
+
+\ex{Followup: Now maximize $h$ over the sphere intersected with $\set{\vec{x_{1}}}\tpose$, which is just $f\inv(\vec{0})$, with\n
+$f(\vec{x})=\norm{\vec{x}}^{2}-1=\left[\begin{array}{c}\vec{x}\tpose\cdot\vec{x}-1\\ \vec{x_{1}}\tpose\cdot\vec{x}\end{array}\right]=\left[\begin{array}{c}f_{1}(\vec{x})\\ f_{2}(\vec{x})\end{array}\right]$\n
+\n
+We need $Dh(\vec{x})=\lambda_{1}Df_{1}(\vec{x})+\lambda_{2}Df_{2}(\vec{x})$, i.e., we need\n
+\inlineeq{\left\{\begin{array}{l}\vec{x}\tpose\cdot\vec{x}=1\\ \vec{x_{1}}\tpose\cdot\vec{x}=0\\ 2\vec{x}\tpose{}B=2\lambda_{1}\vec{x}\tpose+\lambda_{2}\vec{x_{1}}\tpose\end{array}\right.\to(\ptxt{right-multiply by }\vec{x_{1}})\to{}2\vec{x}\tpose{}B\vec{x_{1}}=0+\lambda_{2}}\n
+So $\lambda_{2}=0$, so $2\vec{x}\tpose{}B=2\lambda_{1}\vec{x}\tpose$, so $B\vec{x}=\lambda_{1}\vec{x}$. We get a second real eigenvalue $\mu_{2}=\lambda_{1}$, with eigenvector $\vec{x_{2}}\in\set{\vec{x_{1}}}^{\perp}$.}
+
+\ex{Use induction to prove the spectral theorem:\n
+$B$ symmetric real matrix $\to$ $B$ admits an orthonormal basis of eigenvectors $\vec{x_{1}},\ldots,\vec{x_{n}}$ with real eignevalues $\mu_{1}\ge\mu_{2}\ge\cdots\ge\mu_{n}$.}
+
+\ex{$h(c_{1}\vec{x_{1}}+\cdots+c_{n}\vec{x_{n}})=c_{1}^{2}\mu_{1}+\cdots+c_{n}^{2}\mu_{n}$.\n
+All $\mu_{i}\ge{}0\Leftrightarrow\vec{x}\tpose{}B\vec{x}\ge0$ for all $\vec{x}\in\R^{n}\setminus\set{\vec{0}}\overset{\ptxt{def}}{\Leftrightarrow}$``$B\ge{}0$''. We say that $B$ is positive semi-definite.\n
+All $\mu_{i}>0\Leftrightarrow\vec{x}\tpose{}B\vec{x}>0$ for all $\vec{x}\in\R^{n}\setminus\set{\vec{0}}\overset{\ptxt{def}}{\Leftrightarrow}$``$B>0$''. We say that $B$ is positive definite.\n
+$B\le{}0\Leftrightarrow(-B)\ge{}0$\n
+$B<0\Leftrightarrow(-B)>0$.}
+
+\thm{Given $\Omega\subset\R^{n}$ convex and open, $f\in{}C^{2}(\Omega,\R)$.\n
+$Hf(\vec{x})\overset{\ptxt{def}}{=}(D_{j}D_{k}f(\vec{x}))_{j;k}$. This is called the Hessian of $f$ at $\vec{x}$.\n
+$Hf(\vec{x})\in\ptxt{Symm}(n)\overset{\ptxt{def}}{=}\set{M\in\Mat(n,n):M\tpose=M}$\n
+$Hf(\vec{x})\ge{}0$, $\forall\vec{x}\in\Omega$, $Df(\vec{x_{0}})=\vec{0}$.\n
+\n
+Then $f(\vec{x})\ge{}f(\vec{x_{0}})$, $\forall\vec{x}\in\Omega$.}
+
+\end{document}

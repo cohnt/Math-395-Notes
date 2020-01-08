@@ -1,0 +1,188 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+\newcommand{\rank}{\ptxt{rank}\>}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+\newcommand{\rInt}{\ptxt{rInt}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{SpOoOoOky Halloween Lecture}
+\date{10/31/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\prop{$K^{\ptxt{cpt}}\subset\R^{n}\Rightarrow{}M^{*,J}(K)=m^{*}(K)$\n
+Proof: We know $m^{*}(K)\le{}m^{*,J}(K)$ is always true. So it is enough to show $m^{*}(K)\ge{}m^{*,J}(K)$.\n
+Pick boxes $Q_{j}$ ($j=1,2,\ldots$) with $\bigcup_{j=1}^{\infty}\rInt{}Q_{j}\supset{}K$.\n
+Compactness implies that $\bigcup_{j=1}^{M}\rInt{}Q_{j}\supset{}K$. So\n
+\inlineeq{\sum_{j=1}^{\infty}v(Q_{j})\ge\sum_{j=1}^{M}v(Q_{j})\ge{}m^{*,J}(K)}\n
+Now we take the $\inf$ over the choice of $Q_{j}$'s.\n
+Therefore $m^{*}(K)\ge{}M^{*,J}(K)$.\proven}
+
+\par\noindent Recall the theorem from Friday:\n
+For bounded $f:Q^{\ptxt{box}}\to\R$, the following are equivalent\n
+\begin{enumerate}
+	\item $f$ is integrable
+	\item 
+	\item 
+	\item $\mathscr{D}\overset{\ptxt{def}}{=}\set{\vec{x}\in{}Q:f\ptxt{ not cts at }\vec{x}}$ has $m^{*}(\mathscr{D})=0$.
+	\item 
+\end{enumerate}
+
+\prop{$\card{S_{1}\cup\cdots\cup{}S_{k}}\le\card{S_{1}}+\cdots+\card{S_{k}}$. (Cardinality maps to $\N\cup\set{0,+\infty}$).\n
+We call this property finite subadditivity.\n
+Proof 1: Induction.\n
+Proof 2: Use $S_{1}\cup\cdots\cup{}S_{k}=S_{1}\sqcup(S_{2}\setminus{}S_{1})\sqcup(S_{3}\setminus(S_{1}\cup{}S_{2}))\sqcup\cdots\sqcup(S_{k}-\bigcup_{i=1}^{k-1}S_{i})$\n
+$\card{S_{1}}+\cdots+\card{S_{k}}\le\card{RHS}=\card{S_{1}\cup\cdots\cup{}S_{k}}$.\proven}
+
+\lemma{Given $B_{1}\cup\cdots\cup{}B_{j}\subset{}X_{1}\cup\cdots\cup{}X_{k}$ (all boxes), with $\Int{}B_{l}$ disjoint.\n
+Then $v(B_{1})+\cdots+v(B_{j})\le{}v(X_{1})+\cdots+v(X_{n})$.\n
+Proof 1: Chop into smaller pieces.\n
+Proof 2: Exercise: $R$ box $\to{}v(R)=m_{\ptxt{pixel}}(R)=m_{\ptxt{pixel}}(\Int{}R)=m_{\ptxt{pixel}}(\rInt{}R)$\n
+Where $\displaystyle{}m_{\ptxt{pixel}}(E)=\lim_{N\to\infty}\card{E\cap\frac{\Z^{n}}{2^{N}}}$\n
+\n
+$\displaystyle\sum_{l=1}\card{\Int{}B_{l}\cap\frac{\Z^{n}}{2^{nN}}}\le\card{\bigcup{}X_{p}\cap\frac{\Z^{n}}{2^{nN}}}\le\sum_{p=1}^{k}\card{X_{p}\cap\frac{\Z^{n}}{2^{nN}}}$\n
+\n
+Therefore $\sum{}m_{\ptxt{pixel}}(\Int{}B_{l})=v(B_{l})$.\proven}
+
+\prop{Given $f$ integrable on $Q^{\ptxt{box}}$, $f\ge{}0$ on $Q$.\n
+Then $\int_{Q}f=0$ iff $m^{*}(f\inv[(0,+\infty)])=0$.\n
+Proof $\Rightarrow$: $f\inv[(0,+\infty)]\subset\mathscr{D}\cup\set{\vec{a}\in{}Q:f\ptxt{ is cts and positive at }\vec{a}}$.\n
+For $\vec{a}$ in the second set, $\exists{}B^{\ptxt{box}}\supset\rInt{}B\ni\vec{a}$ with $f\ge\frac{f(\vec{a})}{2}\mathbb{I}_{B}$.\n
+Then $\int_{Q}f\ge\int_{Q}\frac{f(\vec{a})}{2}\mathbb{I}_{B}\overset{\ptxt{exer}}{=}\frac{f(\vec{a})}{2}v(B)>0$. Oops! Hence no such $\vec{a}$ exists.\n
+\n
+Proof $\Leftarrow$: $f\inv[(0,+\infty)]$ contains no boxes of positive volume. To show this, it's enough to prove $m^{*}(B^{\ptxt{positive volume box}})>0$. This is equal to $m^{*,J}(B)$, so this is all true by previous lemma.\n
+So each $L(f,P)=0$, so $\underline{\int_{Q}}f=0$, so $\int_{Q}f=0$.}
+
+\par\noindent Consider $S^{\ptxt{bdd}}\subset\R^{n}$, with $f:S\to\R$ bounded, $f_{S}(\vec{x})=\left\{\begin{array}{ll}f(\vec{x}) & \quad\vec{x}\in{}S\\ 0 & \quad\vec{x}\not\in{}S\end{array}\right.$, and\n
+$\int_{S}f\overset{\ptxt{def}}{=}\int_{Q}f_{S}$ for $Q^{\ptxt{box}}\supset{}S$.\n
+
+\prop{Existence and value of $\int_{Q}f_{s}$ do not depend on the choice of $Q$.\n
+Proof: Choose $Q_{3}$ \st{} $\overline{S},Q_{1},Q_{2}\supset\Int{}Q_{3}$. Then the discontinuities set for $Q_{3}$ is equal to the discontinuities set for $f$ on $S$.}
+
+\end{document}

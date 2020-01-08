@@ -1,0 +1,159 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1\n}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\n\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+
+% Topology
+\newcommand{\closure}[1]{\bar{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Bolzano-Weierstrass}
+\date{9/12/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\thm{(Bolzano-Weierstrass) $(X,d)$ compact $\leftrightarrow$ $X$ sequentially compact -- i.e. every sequence admits a convergent subsequence.\n
+\n
+Proof: $\Rightarrow$ Suppose to the contrary, we have $(v_{j})$ in $X$ with no convergent subsequence. Then for every $y\in{}X$, $\exists{}U_{y}$ open with $y\in{}U_{y}$ such that $U_{y}$ only contains finitely many $v_{j}$.\n
+So $X=\bigcup_{y\in{}X}U_{y}=\bigcup_{i<k}U_{y_{i}}$. But that only contains finitely many $v_{j}$. Oops!\n
+\n
+$\Leftarrow$ Lemma: If $X$ is a sequentially compact metric space, then $\forall\epsilon>0$ we can cover $X$ by finitely many $\epsilon$-balls. We then call $X$ ``totally bounded''.\n
+Proof: suppose not. Pick $v_{1}\in{}X$\n
+\phantom{Proof: suppose not. Pick }$v_{2}\not\in{}B_{\epsilon}(v_{1})$\n
+\phantom{Proof: suppose not. Pick $v_{2}$}$\;\;\vdots$\n
+\phantom{Proof: suppose not. Pick }$v_{n}\not\in{}B_{\epsilon}(v_{n-1})\cup\cdots\cup{}B_{\epsilon}(v_{1})$. Oops.\proven
+Suppose $X=\bigcup_{\alpha\in{}A}X_{\alpha}$ with each $X_{\alpha}$ open. Call $S\subset{}X$ ``good'' if $S$ contained in a finite union of $X_{\alpha}$. Otherwise, call $S$ ``bad''. Note that the finite union of ``good'' sets is ``good''. Our goal is to show that $X$ is good. Suppose, to the contrary, that $X$ is bad. Lemma + note $\to\forall{}m\in\N$, $\exists{}v_{m}\in{}X$ \st{} $B_{1/m}(v_{m})$ is bdd.\n
+Choose $v_{m_{k}}\to{}v\in{}X$ by hypothesis. Choose $\alpha$ \st{} $v\in{}X_{\alpha}$. Then $\exists\epsilon>0$ \st{} $B_{\epsilon}(v)\subset{}X_{\alpha}$. Pick $k\in\N$ \st{} $m_{k}>2/\epsilon$ and $d(v,v_{m_{k}})<\epsilon/2$. But then $B_{1/m_{k}}(v_{m_{k}})$ is good. Oops!\proven
+\n
+This proves the Bolzano-Weierstrass Theorem.\proven}
+
+\par\noindent It is also true that $(X,d)$ is compact if and only if $(X,d)$ is totally bounded and complete. We will receive a handout on this.\n
+
+\par\noindent Let $f:X\to{}Y$ with $X$, $Y$ metric spaces with metrics $d_{X}$ and $d_{Y}$, respectively.\n
+
+\defn{We say $f$ is \underline{Lipschitz} if $\exists{}C\in\R_{>0}$ \st{} $d_{Y}(f(x_{1}),f(x_{2}))\le{}Cd_{X}(x_{1},x_{2})$, implying continuity.}
+
+\ex{The $\inf$ of Lipschitz constants of $f$ is a Lipschitz constant of $f$.}
+
+\par\noindent $f$ is uniformly continuous means we can choose $\delta$ independently of $x_{0}$.\n
+
+\prop{$f$ is Lipschitz $\to$ $f$ is uniformly continuous.}
+
+\defn{$f$ is a \underline{contraction} if $f$ is a Lipschitz mapping with $C<1$.}
+
+\defn{A \underline{bi-Lipschitz} map $f:X\to{}Y$ is a bijection \st{} $f$, $f\inv$ are Lipschitz.}
+
+\ex{$f:\R\to\R$, $x\mapsto{}x+\frac{\sin{x}}{37}$ is bi-Lipschitz.}
+
+\defn{$f$ is said to be an \underline{isometry} iff $d_{Y}(f(x_{1}),f(x_{2}))=d_{X}(x_{1},x_{2})$.}
+
+\defn{Suppose $X$ is a vector space (over $\R$ or $\C$) and is also a metric space with metric $d$. $d$ is said to be \underline{translation invariant} $\leftrightarrow{}d(x_{1},x_{2})=d(x_{1}+y,x_{2}+y)$.}
+
+\ex{Show that $d$ is translation-invariant iff $d(x_{1},x_{2})=d(0,x_{2}-x_{1})$.}
+
+\defn{$d$ is \underline{homogenous} $\leftrightarrow{}d(tx_{1},tx_{2})=\abs{t}d(x_{1},x_{2})$.}
+
+\defn{If $d$ is both translation-invariant and homogenous, then $d$ defines a \underline{norm}.}
+
+\end{document}

@@ -1,0 +1,230 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivdies}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\extalignint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Extended Riemann Integrals}
+\date{11/9/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall: $f\in{}C(A^{\ptxt{osso}\R^{n}},\R)$, $f\ge{}0$\n
+$\extint_{A}f\overset{\ptxt{def}}{=}\sup\set{\int_{E}f:E^{\ptxt{cpt},\ptxt{rect}}\subset{}A}$\n
+$\extint_{A}f=\ptxt{``ordinary''}\int_{A}f$ if $\int_{A}f$ exists\n
+$\extint_{A}f=\lim_{j\to\infty}\int_{E_{j}}f$ if $E_{j}^{\ptxt{cpt},\ptxt{rect}}\subset{}A$, $E_{1}\subset{}E_{2}\subset\cdots$, and $\bigcup_{j=1}^{\infty}\Int{}E_{j}=A$.\n
+$\extint_{A}f=\lim_{j\to\infty}\extint_{U_{j}}f$ if $U_{j}^{\ptxt{open}}\subset{}A$, $U_{1}\subset{}U_{2}\subset\cdots$, and $\bigcup_{j=1}^{\infty}U_{j}=A$.\n
+
+\par\noindent Proof of the last one: $\extint_{U_{j}}f\le\extint_{A}f$, so $\lim_{j\to\infty}\extint_{U_{j}}f=\sup\set{\extint_{U_{j}}f}\le\extint_{A}f$.\n
+Each compact rectifiable $E\subset{}A$ lies in some $U_{j}$. So $\int_{E}f\le\extint_{U_{j}}f\le\lim_{j\to\infty}\extint_{U_{j}}f$.\n
+Then, take the supremum over the $E_{j}$. So $\extint_{A}f\le\lim_{j\to\infty}\extint_{U_{j}}f$.\n
+
+\defn{For $x\in[-\infty,+\infty]$, $x_{+}\overset{\ptxt{def}}{=}\max\set{x,0}=\frac{\abs{x}+x}{2}$ and $x_{-}\overset{\ptxt{def}}{=}\max{\set{-x,0}}=\frac{\abs{x}-x}{2}$.}
+
+\par\noindent Then $x_{+},x_{-}\ge{}0$, $x_{+}\cdot{}x_{-}=0$, $x=x_{+}-x_{-}$, and $\abs{x}=x_{+}+x{-}$.\n
+
+\defn{For $f:X\to[-\infty,\infty]$, $f_{+}(x)\overset{\ptxt{def}}{=}(f(x))_{+}$ is the \underline{positive part of $f$}, and $f_{-}(x)\overset{\ptxt{def}}{=}(f(x))_{-}$ is the \underline{negative part of $f$}.}
+
+\par\noindent $f_{+},f_{-}\ge{}0$, $f_{+}\cdot{}f_{-}=0$, $f=f_{+}-f_{-}$, and $\abs{f}=f_{+}+f_{-}$.\n
+
+\par\noindent Consider $f\in{}C(A^{\ptxt{osso}\R^{n}},\R)$ (with $f$ not necessarily non-negative). Then we say $f$ is ``extended integrable on $A$'' or ``integrable in the extended sense'' if $\extint_{A}f_{+},\extint_{A}f_{-}<+\infty$.\n
+
+\par\noindent $\extint_{A}f$ exists if at least one of $\extint_{A}f_{+}$ and $\extint_{A}f_{-}$ is finite. Set $\extint_{A}f=\extint_{A}f_{+}-\extint_{A}f_{-}$.\n
+
+\par\noindent $\extint_{A}af+bg=a\extint_{A}f+b\extint_{A}g$\n
+$f\ge{}g$ on $A$ $\Rightarrow$ $\extint_{A}f\le\extint_{A}g$ if they exist.\n
+For compact, rectifiable $E_{1}\subset{}E_{2}\subset\cdots\subset{}A$ with $\bigcup_{j=1}^{\infty}\Int{}E_{j}=A$, $\extint_{A}f=\lim_{j\to\infty}\int_{E_{j}}f$.\n
+For open $U_{1}\subset{}U_{2}\subset\cdots\subset{}A$, with $\bigcup_{j=1}^{\infty}{U_{j}}=A$, $\extint_{A}f=\lim_{j\to\infty}\extint_{U_{j}}f$\n
+
+\par\noindent Consider $Q$ box $\overset{\vec{x}\mapsto{}M\vec{x}+\vec{b}}{\to}$ $P$ parallelopiped,\n
+$A^{\ptxt{open}}\subset\R^{n}\overset{g\ptxt{ diffeo}}{\to}B^{\ptxt{open}}\subset\R^{n}\overset{f\ptxt{ cts}}{\to}\R$.\n
+Then we want to prove $P$ is rectifiable, $v(P)=\abs{\det{}M}\cdot{}v(Q)$, and $\extint_{B}f=\extint_{A}f$.\n
+
+\thm{(Change of Variable Thm) Given $f,g$ as above, then either $\displaystyle\extint_{B}f=\extint_{A=g\inv[B]}f\of{}g\abs{\det{}Dg}$, or the integral on neither side exists.}
+
+\par\noindent Special case: $n=1$, $A$ connected (i.e. an interval), $A=(\alpha,\beta)$ for $\alpha<\beta\in[-\infty,\infty]$. Then $g$ monotonic.
+\begin{enumerate}[label=Case \arabic*:,leftmargin=1.5cm]
+	\item $B=(g(\alpha),g(\beta))$. Then $\extint_{B}f=\extint_{A}(f\of{}g)g'$
+	\item $B=(g(\beta),g(\alpha))$. Then $\extint_{B}f=-\extint_{A}(f\of{}g)g'\overset{\ptxt{calc 1/2}}{=}-\extint_{g(\beta)}^{g(\alpha)}f$
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,251 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+\usepackage{mathrsfs}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{arydshln}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\up}{\vspace{-\baselineskip}}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\Ind}{\mathbbm{1}}
+\newcommand{\cut}{\setminus}
+
+% Graph Theory
+\let\deg\relax
+\DeclareMathOperator{\deg}{deg}
+\newcommand{\degp}{\ptxt{deg}^{+}}
+\newcommand{\degn}{\ptxt{deg}^{-}}
+\newcommand{\precdot}{\mathrel{\ooalign{$\prec$\cr\hidewidth\hbox{$\cdot\mkern0.5mu$}\cr}}}
+\newcommand{\succdot}{\mathrel{\ooalign{$\cdot\mkern0.5mu$\cr\hidewidth\hbox{$\succ$}\cr\phantom{$\succ$}}}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\affdim}{affdim}
+
+% Probability
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil{}}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\divides}{\mid}
+\newcommand{\ndivdies}{\nmid}
+\DeclareMathOperator{\lcm}{lcm}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\DeclareMathOperator{\trace}{tr}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\V}[1]{\vec{#1}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Bd}{Bd}
+\DeclareMathOperator{\rInt}{rInt}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\ah}{ah}
+
+% Analysis
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\hypo}{hypo}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\lint}[2]{\underset{#1}{\overset{#2}{{\color{black}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\uint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{black}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\alignint}[2]{\underset{#1}{\overset{#2}{{\color{white}\underline{{\color{white}\overline{{\color{black}\int}}\color{black}}}}}}}
+\newcommand{\extint}{\ptxt{ext}\int}
+\newcommand{\alignextint}[2]{\ptxt{ext}\alignint{#1}{#2}}
+\newcommand{\conv}{\ast}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Brackets
+\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\brack}[1]{\left[#1\right]}
+\renewcommand{\brace}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left<#1\right>}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\newcommand{\parSymbol}{\P}
+\renewcommand{\P}{\ptxt{\textbf{P}}}
+\newcommand{\NP}{\ptxt{\textbf{NP}}}
+\newcommand{\NPC}{\ptxt{\textbf{NP-Complete}}}
+\newcommand{\NPH}{\ptxt{\textbf{NP-Hard}}}
+\newcommand{\EXP}{\ptxt{\textbf{EXP}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\newcommand{\B}{
+    \begin{tikzpicture}
+    \filldraw [fill=red, draw=black] (0, 0) rectangle (0.37, 0.45);
+    \draw [line width=0.5mm, white ] (0.1,0.08) -- (0.1,0.38);
+    \draw[line width=0.5mm, white ] (0.1, 0.35) .. controls (0.2, 0.35) and (0.4, 0.2625) .. (0.1, 0.225);
+    \draw[line width=0.5mm, white ] (0.1, 0.225) .. controls (0.2, 0.225) and (0.4, 0.1625) .. (0.1, 0.1);
+    \end{tikzpicture}
+}
+
+\author{Thomas Cohn}
+\title{Rectifiable Sets}
+\date{11/5/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Recall from Friday that if $S^{\ptxt{bdd}}\subset\R^{n}$ and $f:S\to\R$ is a bounded function, then we say $f$ is integrable over $S$ if and only if $\int_{S}f=\int_{Q}f_{S}$ is defined for some/all $Q^{\ptxt{box}}\supset{}S$.\n
+
+\par\noindent Some rules:
+\begin{enumerate}[label=(\alph*)]
+	\item $f,g$ integrable over $S$ implies that $\displaystyle\int_{S}af+bg=a\int_{S}f+b\int_{S}g$
+	\item $f,g$ integrable over $S$, and $f\le{}g$ on $S$ implies that $\displaystyle\int_{S}f\le\int_{S}g$
+	\begin{enumerate}[label=(\alph*$'$),start=2]
+		\item $f$ integrable over $S$ implies that $\abs{f}$ is integrable over $S$.\n
+		Also, $\displaystyle\abs{\int_{S}f}=\max\set{\int_{S}f,-\int_{S}f}\le\int_{S}\abs{f}$
+	\end{enumerate}
+	\item $T\subseteq{}S$, $f\ge{}0$ integrable on $T,S$ implies that $\displaystyle\int_{T}f\le\int_{S}f$
+	\item $f$ integrable over $S_{1}$ and $S_{2}$ implies that $f$ is integrable over $S_{1}\cup{}S_{2}$ and $S_{1}\cap{}S_{2}$, and\n
+	$\displaystyle\int_{S_{1}\cup{}S_{2}}f=\int_{S_{1}}f+\int_{S_{2}}f-\int_{S_{1}\cap{}S_{2}}f$
+\end{enumerate}
+
+\par\noindent Proof (a): Let $A=\set{(x,y)\in\R^{2}:x=0\lor{}y=0\lor{}x=y}$. Define $\varphi:A\to\R$ by $(x,0)\mapsto{}x$, $(0,y)\mapsto{}y$, and $(x,x)\mapsto{}x$.\n
+
+\par\noindent Exercise 1: Show that $\varphi$ is continuous.\n
+Exercise 2: Show that $\varphi\of(f_{S_{1}},f_{S_{2}})=f_{S_{1}\cup{}S_{2}}$. This tells us that $f_{S_{1}\cup{}S_{2}}$ is continuous at points where $f_{S_{1}}$ and $f_{S_{2}}$ are continuous. Hence, $f_{S_{1}\cup{}S_{2}}$ is cotntinuous.\n
+
+\par\noindent Now, use $f_{S_{1}\cup{}S_{2}}+f_{S_{1}\cap{}S_{2}}=f_{S_{1}}+f_{S_{2}}$.\n
+
+\newpage
+\ex{$S=\set{(x_{1},x_{2},x_{3}):x_{1}\ge{}0,x_{2}\ge{}0,x_{3}\ge{}0,x_{1}+x_{2}+x_{3}\le{}1}$. Let $Q=[0,1]\times[0,1]\times[0,1]$.\n
+\n
+Check that $\int_{S}1$ exists (use study exercise)
+\begin{align*}
+\int_{S}1=\int_{Q}\Ind_{S} & =\int_{0\le{}x_{1}\le{}1}\paren{\;\int_{0\le{}x_{2}\le{}1}\paren{\;\int_{0\le{}x_{3}\le{}1}\Ind_{S}}}\\
+                           & =\int_{0\le{}x_{1}\le{}1}\paren{\;\int_{0\le{}x_{2}\le{}1}\max\set{1-x_{1}-x_{2},0}}\\
+                           & =\int_{0\le{}x_{1}\le{}1}\paren{\;\int_{0\le{}x_{2}\le{}1-x_{1}}1-x_{1}-x_{2}}\\
+                           & =\int_{0\le{}x_{1}\le{}1}\brack{(1-x_{1})x_{2}-\frac{x_{2}^{2}}{2}}_{x_{2}=0}^{x_{2}=1-x_{1}}\\
+                           & =\int_{0\le{}x_{1}\le{}1}\frac{(1-x_{1})^{2}}{2}\\
+                           & =\brack{-\frac{(1-x_{1})^{3}}{6}}_{x_{1}=0}^{x_{1}=1}\\
+                           & =\frac{1}{6}
+\end{align*}}
+
+\thm{Given $S^{\ptxt{bdd}}\subset\R^{n}$, $f:S\to\R$ bounded and continuous, $\displaystyle{}E\overset{\ptxt{def}}{=}\set{\vec{x_{0}}\in\Bd{}S:\ptxt{it is false that }\lim_{\vec{x}\to\vec{x_{0}}\;(\vec{x}\in{}S)}f(\vec{x})=0}$, and $m^{*}(E)=0$, then $f$ is integrable on $S$.\n
+Proof: $\mathscr{D}f_{S}\subset{}E$.\proven}
+
+\cor{Given $S^{\ptxt{bdd}}$, $f:S\to\R$ bounded and continuous, and $m^{*}(\Bd{}S)=0$, then $f$ is integrable over $S$.}
+
+\par\noindent Let's further study the condition that $m^{*}(\Bd{}S)=0$:
+
+\defn{$S$ is \underline{rectifiable}\n
+$\overset{\ptxt{def}}{\Leftrightarrow}1$ integrable over $S$\n
+$\Leftrightarrow\Ind_{S}$ integrable on $Q^{\ptxt{box}}\supset{}S$\n
+$\Leftrightarrow{}m^{*}(\Bd{}S)=0\overset{\ptxt{Cor}}{\to}$ all bounded $f\in{}C(S,\R)$ are integrable over $S$\n
+$\Leftrightarrow{}m^{*,J}(\Bd{}S)=0$}
+
+\par\noindent For $S$ rectifiable, we define $v(S)=\int_{S}1$\n
+
+\par\noindent $S$ rectifiable, $A=\Int{}S\Rightarrow\Bd{}A\subset\Bd{}S$, $m^{*}(\Bd{}A)\le{}m^{*}(\Bd{}S)=0$. This implies that $\Ind_{S},\Ind_{A}$ are integrable. So $\Ind_{S\cut{}A}=\Ind_{S}-\Ind_{A}$ is integrable (on $Q$). Thus, $S\cut{}A$ is rectifiable, and $\Int(S\cut{}A)=\emptyset$.\n
+All $L(\Ind_{S\cut{}A},P)=0$, so $\displaystyle\lint{Q}{}\Ind_{S\cut{}A}=0$. Thus, $\displaystyle\int\Ind_{A}=\int\Ind_{S}\Rightarrow{}v(A)=v(S)$.\n
+
+\par\noindent But what if $S$ and or $f$ are not bounded? \textbf{Improper Integrals}\n
+
+\par\noindent Munkres starts to focus on integrals over open sets. Start with $f\ge{}0$.\n
+
+\defn{The \underline{extended integral} of $f$ over set $A$, $\displaystyle\extint_{A}f\overset{\ptxt{def}}{=}\sup\set{\int_{E}f:E\ptxt{ cpt, rect}}$}
+
+\end{document}

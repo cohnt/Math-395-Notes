@@ -1,0 +1,174 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ragged2e}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{tabularx}
+\usepackage{arydshln}
+\usepackage{tensor}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[pdf,tmpdir,singlefile]{graphviz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formatting commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\n}{\hfill\break}
+\newcommand{\lemma}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Lemma: }}\textbf{Lemma: }#1}
+\newcommand{\defn}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Defn: }}\textbf{Defn: }#1\n}
+\newcommand{\thm}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Thm: }}\textbf{Thm: }#1\n}
+\newcommand{\prop}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Prop: }}\textbf{Prop: }#1\n}
+\newcommand{\cor}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Cor: }}\textbf{Cor: }#1\n}
+\newcommand{\ex}[1]{\par\noindent\settowidth{\hangindent}{\textbf{Ex: }}\textbf{Ex: }#1\n}
+\newcommand{\proven}{\;$\square$\n}
+\newcommand{\problem}[1]{\par\noindent{#1}\n}
+\newcommand{\problempart}[2]{\par\noindent\indent{}\settowidth{\hangindent}{\textbf{(#1)} \indent{}}\textbf{(#1)} #2\n}
+\newcommand{\ptxt}[1]{\textrm{\textnormal{#1}}}
+\newcommand{\inlineeq}[1]{\centerline{$\displaystyle #1$}}
+\newcommand{\pageline}{\noindent\rule{\textwidth}{0.1pt}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Set Theory
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ps}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\pfinite}[1]{\mathcal{P}^{\ptxt{finite}}\left(#1\right)}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\N}{\naturals}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\Z}{\integers}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\Q}{\rationals}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\R}{\reals}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\C}{\complex}
+\newcommand{\comp}{^{\complement}}
+\newcommand{\Hom}{\ptxt{Hom}\>}
+
+% Graph Theory
+\renewcommand{\deg}[1]{\ptxt{deg}\left(#1\right)}
+\newcommand{\degp}[1]{\ptxt{deg}^{+}\!\!\left(#1\right)}
+\newcommand{\degn}[1]{\ptxt{deg}^{-}\!\!\left(#1\right)}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Avg}{\mathbb{E}}
+
+% Standard Math
+\newcommand{\inv}{^{-1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\ceil}[1]{\left\lceil{}#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor{}#1\right\rfloor{}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\of}{\circ}
+\newcommand{\tri}{\triangle}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\Graph}{\ptxt{Graph}\>}
+\newcommand{\ndiv}{\nmid}
+\renewcommand{\epsilon}{\varepsilon}
+
+% Linear Algebra
+\newcommand{\Id}{\textrm{\textnormal{Id}}}
+\newcommand{\im}{\textrm{\textnormal{im}}}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+\newcommand{\tpose}{^{T}}
+\newcommand{\iprod}[1]{\left<#1\right>}
+\newcommand{\trace}{\ptxt{tr}}
+\newcommand{\chgBasMat}[3]{\!\!\tensor*[_{#1}]{\left[#2\right]}{_{#3}}}
+\newcommand{\vecBas}[2]{\tensor*[]{\left[#1\right]}{_{#2}}}
+\newcommand{\GL}{\ptxt{GL}\>}
+\newcommand{\Mat}{\ptxt{Mat}\>}
+\newcommand{\Span}{\ptxt{Span}}
+
+% Topology
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\uball}{\mathcal{U}}
+\newcommand{\Int}{\ptxt{Int}\>}
+\newcommand{\Ext}{\ptxt{Ext}\>}
+\newcommand{\Bd}{\ptxt{Bd}\>}
+
+% Proofs
+\newcommand{\st}{s.t.}
+\newcommand{\unique}{!}
+
+% Algorithms
+\algrenewcommand{\algorithmiccomment}[1]{\hskip 1em \texttt{// #1}}
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Other commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\flag}[1]{\textbf{\textcolor{red}{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make l's curvy in math environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathcode`l="8000
+\begingroup
+\makeatletter
+\lccode`\~=`\l
+\DeclareMathSymbol{\lsb@l}{\mathalpha}{letters}{`l}
+\lowercase{\gdef~{\ifnum\the\mathgroup=\m@ne \ell \else \lsb@l \fi}}%
+\endgroup
+
+\author{Thomas Cohn}
+\title{Optimization}
+\date{10/12/18} % Can also use \today
+
+\begin{document}
+\maketitle
+\setlength\RaggedRightParindent{\parindent}
+\RaggedRight
+
+\par\noindent Situation 2: Constraints\n
+Given $f\in{}C^{1}(\Omega^{\ptxt{osso}\R^{k+n}},\R^{n})$, $\vec{p}\in{}E=f\inv(\vec{0})$, $h\in{}C^{1}(\Omega,\R)$, $h|_{E}$ has a local min/max at $\vec{p}$.\n
+Consider $\gamma\in{}C^{1}(\ptxt{osso}\R,E)$. From Wednesday, $0=Dh(\vec{p})\cdot\gamma'(0)$. What do we know about $\gamma'(0)$?\n
+Note that if we define $f\of\gamma=0$, $Df(\gamma(t))\cdot\gamma'(t)=0$. When $t=0$, $Df(\vec{p})\cdot\gamma'(0)=0$.\n
+Thus, $\gamma'(0)\in\ker{}Df(\vec{p})$.\n
+
+\lemma{If $Df(\vec{p})$ has maximal rank $n$, then there are no other constarints on $\gamma'(0)$.\n
+Proof: Homework 6 problem 1.\n}
+
+\par\noindent Altogether, we have $Dh(\vec{p})\in(\ker{}Df(\vec{p}))^{\perp}=((\ptxt{row space }Df(\vec{p}))^{\perp})^{\perp}=\ptxt{row space }Df(\vec{p})$.\n
+This is $\Span\set{Df_{1}(\vec{p}), Df_{2}(\vec{p}),\ldots,Df_{n}(\vec{p})}$. I.e. $Dh(\vec{p})\sum_{i=1}^{n}\lambda_{i}Df_{i}(\vec{p})$. The $\lambda_{i}$'s are called Lagrange multipliers.\n
+
+\par\noindent So we have the equations $\left\{\begin{array}{l}f(\vec{p})=\vec{0}\\ Dh(\vec{p})=\lambda_{1}Df_{1}(\vec{p})+\cdots+\lambda_{n}Df_{n}(\vec{p})\end{array}\right.$\n
+
+\par\noindent This gives us $k+2n$ unknowns: $\vec{p}=(p_{1},\ldots,p_{k+n})$ and $\lambda_{1},\ldots,\lambda_{n}$.\n
+$f(\vec{p})=\vec{0}$ gives us $n$ ``scalar equations''.\n
+$Dh(\vec{p})=\lambda_{1}Df_{1}(\vec{p})+\cdots+\lambda_{n}Df_{n}(\vec{p})$ gives us $n+k$ ``scalar equations''.\n
+
+\par\noindent Global aspects: $K^{\ptxt{cpt}}\subset\R^{m}$, $h:K\to\R$, the extreme value theorem implies that $h$ has a global max and min on $K$. Points we need to check:
+\begin{enumerate}
+	\item $\vec{p}\in\Int(K)$ if $Dh(\vec{p})=\vec{0}$.
+	\item $\vec{p}\in\Int(K)$ if $h$ is not differentiable at $\vec{p}$.
+	\item $\vec{p}\in\Bd(K)$.
+\end{enumerate}
+
+\ex{Maximize and minimize $h(x,y)=x^{4}+y^{6}$ on $K=\set{(x,y):x^{2}+y^{2}\le{}1}$.\n
+\inlineeq{Dh\left(\begin{array}{c}x\\ y\end{array}\right)=\left[\begin{array}{cc}4x^{3} & 6x^{5}\end{array}\right]}\n
+\inlineeq{Df\left(\begin{array}{c}x\\ y\end{array}\right)=\left[\begin{array}{cc}2x & 2y\end{array}\right]}\n
+The minimum occurs at $(0,0)$ with $h(0,0)=0$. The maximum occurs on the boundary of $K$.\n
+$\Bd(K)=E=\set{(x,y):x^{2}+y^{2}=1}$. So we have the system of equations\n
+\inlineeq{\left\{\begin{array}{l}x^{2}+y^{2}=1\\ 4x^{3}=\lambda\cdot{}2x\\ 6y^{5}=\lambda\cdot{}2y\end{array}\right.}\n
+$x=0\to{}y=\pm{}1\to{}h=1$.\n
+$y=0\to{}x=\pm{}1\to{}h=1$.\n
+\n
+$x,y\ne{}0\to\left\{\begin{array}{l}x^{2}+y^{2}=1\\ x^{2}+\frac{1}{2}\lambda\\ y^{4}=\frac{1}{3}\lambda\end{array}\right.\to\frac{\lambda}{2}+\frac{\sqrt{\lambda}}{\sqrt{3}}-1=0\to\lambda=\frac{2}{3}(4-\sqrt{7})$ ... $\to{}h=0.368$}
+
+\par\noindent A variant: Replace $x^{2}+y^{2}\le{}1$ by $x^{8}+y^{8}\le{}1$. Then you get a ``non-trivial maximum''.
+
+\end{document}
